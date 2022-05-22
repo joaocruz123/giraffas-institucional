@@ -46,6 +46,11 @@ import {ReactComponent as ReloadCupom } from '../../assets/icons/icon_reload_cup
 import {ReactComponent as InfoCupom } from '../../assets/icons/icon_info_cupom.svg'
 import {ReactComponent as ActiveCupom } from '../../assets/icons/active_icon.svg'
 import {ReactComponent as InativeCupom } from '../../assets/icons/inative_icon.svg'
+import {ReactComponent as IconAddress } from '../../assets/icons/icon_address.svg'
+import {ReactComponent as PointerDivider } from '../../assets/icons/pointer_divider.svg'
+import {ReactComponent as IconArrowDown } from '../../assets/icons/icon_arrow_down.svg'
+import {ReactComponent as IconRota } from '../../assets/icons/icon_rota2.svg'
+import {ReactComponent as PingGiraffas } from '../../assets/icons/ping_giraffas.svg'
 
 const icons = {
     appGiraffas: AppGiraffas,
@@ -92,7 +97,12 @@ const icons = {
     reloadCupom: ReloadCupom,
     infoCupom: InfoCupom,
     activeCupom: ActiveCupom,
-    inativeCupom: InativeCupom
+    inativeCupom: InativeCupom,
+    address : IconAddress,
+    pointerDivider: PointerDivider,
+    arrowDown: IconArrowDown,
+    rota: IconRota,
+    pingGiraffas: PingGiraffas,
 }
 
 // To-Do: Fix stroke

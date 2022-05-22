@@ -5,12 +5,16 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container'
-import Highlights from '../components/Highlights';
 import { Navbar } from '../components/Navbar';
-import Feed from './../components/Feed';
 import { fetchFeedHighlights, fetchGroupsHighlights } from '../redux/actions/ui';
 import useFetch from '../utils/useFetch';
 import { connect, useDispatch } from 'react-redux';
+import Cards from '../components/Cards';
+import Feed from './../components/Feed';
+import Highlights from '../components/Highlights';
+import Stores from '../components/Stores/Stores';
+
+
 
 function Copyright(props) {
     return (
@@ -73,6 +77,8 @@ function HomeContent(props) {
             <Navbar />
             <Highlights />
             <Feed />
+            <Cards />
+            <Stores />
             <Container
                 maxWidth="md"
                 component="footer"

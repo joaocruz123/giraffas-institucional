@@ -23,37 +23,57 @@ export function Navbar() {
                 <Nav>
                     <Link
                         variant="button"
-                        color="text.primary"
                         href="#"
                         underline="none"
-                        sx={{ my: 1, mx: 1.5, color: "#fff" }}
+                        sx={{
+                            my: 1, mx: 1.5, color: "#fff",
+                            '&:hover': {
+                                color: "#fff",
+                                textDecoration: "none"
+                            },
+                        }}
                     >
                         Peça Já
                     </Link>
                     <Link
                         variant="button"
-                        color="text.primary"
                         href="#"
                         underline="none"
-                        sx={{ my: 1, mx: 1.5, color: "#fff" }}
+                        sx={{
+                            my: 1, mx: 1.5, color: "#fff",
+                            '&:hover': {
+                                color: "#fff",
+                                textDecoration: "none"
+                            },
+                        }}
                     >
                         Promoção
                     </Link>
                     <Link
                         variant="button"
-                        color="text.primary"
                         href="#"
                         underline="none"
-                        sx={{ my: 1, mx: 1.5, color: "#fff" }}
+                        sx={{
+                            my: 1, mx: 1.5, color: "#fff",
+                            '&:hover': {
+                                color: "#fff",
+                                textDecoration: "none"
+                            },
+                        }}
                     >
                         Cardápio
                     </Link>
                     <Link
                         variant="button"
-                        color="text.primary"
                         href="#"
                         underline="none"
-                        sx={{ my: 1, mx: 1.5, color: "#fff" }}
+                        sx={{
+                            my: 1, mx: 1.5, color: "#fff",
+                            '&:hover': {
+                                color: "#fff",
+                                textDecoration: "none"
+                            },
+                        }}
                     >
                         Lojas
                     </Link>
@@ -63,7 +83,7 @@ export function Navbar() {
                 <CustomButton>
                     Faça Seu Pedido
                     <CustomIcon>
-                      <Icon width={"25px"} height={"25px"} name={"appGiraffas"} stroke={"primary"} />
+                        <Icon width={"25px"} height={"25px"} name={"appGiraffas"} stroke={"primary"} />
                     </CustomIcon>
                 </CustomButton>
             </Toolbar>

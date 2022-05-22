@@ -54,7 +54,7 @@ const MainApp = ({ storeInfo }) => {
   if (loading) {
     return (
       <Wrapper>
-        <ReactLoading type="spin" color="#173A6D" height={'3%'} width={'3%'} />
+        <ReactLoading type="spin" color="#ED8B26" height={'3%'} width={'3%'} />
       </Wrapper>
     )
   } else {
