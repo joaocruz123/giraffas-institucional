@@ -5,10 +5,13 @@ import styled, { ThemeProvider } from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import ReactLoading from "react-loading";
-
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HomePage from './pages/HomePage'
 
 import { THEME } from './config'
+import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
 
 const Wrapper = styled.div`
   background: #fff;
@@ -40,7 +43,7 @@ const MainApp = ({ storeInfo }) => {
   const localAccess = localStorage.getItem('auth') ? localStorage.getItem('auth') : null
   const logout = localStorage.getItem('logout') ? localStorage.getItem('logout') : null
   const [loading, setLoading] = useState(true)
-
+  const [ value, setValue] = useState(0)
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -68,6 +71,19 @@ const MainApp = ({ storeInfo }) => {
             <Switch>
               <Route path="/" component={HomePage} />
             </Switch>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: { md: 'none', xs: 'block' }  }} elevation={3}>
+                <BottomNavigation
+                    showLabels
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue(newValue);
+                    }}
+                >
+                    <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+                    <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+                    <BottomNavigationAction label="Archive" icon={<LocationOnIcon />} />
+                </BottomNavigation>
+            </Paper>
           </div>
         </Router>
       </ThemeProvider>

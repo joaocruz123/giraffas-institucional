@@ -5,6 +5,24 @@ export const Wrapper = styled.div`
     background-image: url(${Background});
     background-color: ${props => props.theme.colors.footerBackground};
     padding: 2rem;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+`
+export const WrapperTow = styled.div`
+    background-color: ${props => props.theme.colors.secondary};
+    padding: 2rem;
+`
+export const H1 = styled.div`
+    font-size: 26px;    
+    text-transform: uppercase;
+    color: ${props => props.theme.colors.white};
+    font-weight: 400;
+`
+export const H2 = styled.div`
+    font-size: 16px;
+    text-transform: uppercase;    
+    color: ${props => props.theme.colors.white};
+    font-weight: 300;
 `
 export const Title = styled.div`
     font-size: 42px;    
@@ -40,4 +58,46 @@ export const SessionTwo = styled.div`
     justify-content: start;
     height: 100%;
     padding: .8rem 0 0 0;
+`
+export const SessionTree = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 100%;
+    padding: .8rem 0 0 0;
+    align-items: end;
+
+    >p {
+        color: ${props => props.theme.colors.white};
+        margin: 0;
+        font-size: 11px;
+    }
+`
+export const Imagens = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    @media (max-width: 20rem) {
+        display: none;
+    }
+`
+
+export const Input = styled.input`
+      border-radius: 12px;
+      padding: .6rem .8rem;
+      color: ${props => props.theme.colors.white};
+      background: rgba(10,23,55,0.2);
+      font-size: 14px;
+      border: none;
+      margin: .7rem 0;
+      width: 80%;
+
+      :focus-visible {
+        border: none; 
+      }
+
+      ::placeholder {
+        color: ${props => props.theme.colors.white};
+      }
 `
