@@ -148,9 +148,9 @@ function Stores(props) {
     }
 
     return (
-        <Container disableGutters component="main" sx={{ pt: 1, pb: 4 }}>
+        <Container disableGutters component="main" sx={{ pt: 1, pb: 2, pl: 3, pr: 3 }}>
             <Grid container spacing={4}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     {places && places.length > 0 ?
                         <div style={{ height: '400px', width: '100%' }}>
                             <GoogleMap
@@ -187,7 +187,7 @@ function Stores(props) {
                         <img src={MapGiraffas} width="100%" style={{ padding: ".6rem 0 0 0" }} alt="map hover init"/>
                     }
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Title>
                         <Subtitle>
                             <CustomIcon>
@@ -217,7 +217,7 @@ function Stores(props) {
                             types: ['address'],
                             componentRestrictions: { country: "br" },
                         }}
-                        defaultValue="São Paulo"
+                        defaultValue="Av. Faria Lima, 1234"
                     />
 
                     {stores ? <Store stores={stores} handlePingStoreLatLong={handlePingStoreLatLong} selectedStore={selectedStore} /> : null}

@@ -11,13 +11,13 @@ function Cards(props) {
     const { feed } = props;
 
     return (
-        <Container disableGutters component="main" sx={{ pt: 1, pb: 4 }}>
+        <Container component="main" sx={{ pt: 1, pb: 4 }}>
             <Grid container spacing={2}>
                 {feed && feed.map((item, index) => {
                     const key = `card-image-${index}`
 
-                    return <Grid item xs={4}>
-                        <img key={key} src={item.image} width="400"/>
+                    return <Grid item xs={12} md={4}>
+                        <img key={key} src={item.image} width="100%"/>
                     </Grid>
                 })}
 

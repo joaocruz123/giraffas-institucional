@@ -16,7 +16,7 @@ export function Navbar() {
             position="absolute"
             color="default"
             elevation={0}
-            sx={{ zIndex: 1, backgroundColor: "#f5f5f50d" }}
+            sx={{ zIndex: 1, backgroundColor: "#f5f5f50d", display: { md: 'block', xs: 'none' } }}
         >
             <Toolbar sx={{ flexWrap: 'wrap' }}>
                 <img src={Logo} width="150" />

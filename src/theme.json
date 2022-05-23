@@ -28,7 +28,9 @@
         "basicRed": "#FF0000",
         "warning": "#FFCA0E",
         "secondWarning": "#F7941D",
-        "textNinethColor": "#CECECE"
+        "textNinethColor": "#CECECE",
+        "titleSession" : "#FFB831",
+        "footerBackground": "#ED8B00"
     },
     "storeName": "Nome do restaurante",
     "logoImage": "https://res.cloudinary.com/voceqpad/image/upload/v1583340712/logo.png",

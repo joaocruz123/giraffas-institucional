@@ -9,7 +9,7 @@ import {
 function Feed(props) {
     const { groups } = props;
     return (
-        <Container disableGutters component="main" sx={{ pt: 4, pb: 4 }}>
+        <Container disableGutters component="main" sx={{ pt: 4, pb: 2 }}>
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={3}>
                 {groups && groups.map((acc, index) => {
 
