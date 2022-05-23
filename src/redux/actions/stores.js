@@ -18,7 +18,6 @@ export const fetchStoresByAddress = ({ lat, long }) => async (dispatch, getState
         const response = mapFetchStoresByAddressResponse(apiResponse.data);
 
         dispatch(setSelectedStoreByAddress(response[0]))
-        dispatch(getLatitudeLongitude(response[0].address))
         result = {
             success: true,
             data: response
@@ -40,7 +39,17 @@ export const setSelectedStoreByAddress = (store) => ({
     payload: store
 })
 
-const getLatitudeLongitude = (address) => async (dispatch, getState, externalApi) => {
+export const setRemoveSelectedStoreByAddress = (store) => ({
+    type: actionTypes.SET_SELECTED_STORE,
+    payload: store
+})
+
+export const setRemoveStoresByAddress = (store) => ({
+    type: actionTypes.GET_STORES_BY_ADDRESS,
+    payload: store
+})
+
+export const getLatitudeLongitude = (address) => async (dispatch, getState, externalApi) => {
     let result = {}
     const formattedAddress = address
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${formattedAddress}&key=${GOOGLE_API_KEY}`

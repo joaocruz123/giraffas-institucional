@@ -22,6 +22,36 @@ export const Wrapper = styled.div`
         }
       }
 
+      .control-dots {
+        position: absolute;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //padding-top: 15px;
+
+        > * {
+          transition: all .25s;
+        }
+
+        > li {
+          width: 45px;
+          height: 5px;
+          background: #ffffff;
+          box-shadow: none;
+          opacity: 1;
+          margin: 0 4px;
+          border-radius: 5px;
+
+          &.selected {
+            background: none;
+            border: 1px solid #ffffff
+            width: 45px;
+            height: 5px;
+          }
+        }
+      }
+
       .carousel-status {
         display: none;
       }

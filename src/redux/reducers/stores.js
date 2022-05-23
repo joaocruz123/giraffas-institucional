@@ -5,7 +5,8 @@ let stores = JSON.parse(localStorage.getItem('stores'))
 const initialState = {
     stores: null,
     selectedStore: null,
-    locationSelectedStore: null
+    locationSelectedStore: null,
+    markets: null
 }
 
 const UiReducer = (state = stores || initialState, action) => {

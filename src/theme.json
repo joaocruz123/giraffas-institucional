@@ -2,7 +2,8 @@
     "fontFamily": "'Roboto', sans-serif",
     "fontSize": 14,
     "colors": {
-        "black": "#000000",
+        "black": "#000000",        
+        "white": "#ffffff",
         "background": "#F9F9F9",
         "primary": "#ED8B26",
         "secondary": "#FFB81C",

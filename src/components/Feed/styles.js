@@ -12,3 +12,13 @@ export const Div = styled.div`
         color: ${props => props.theme.colors.secondary};
     }
 `
+
+export const Cirlular = styled.div`
+    border: 2px solid ${props => props.theme.colors.white};
+    padding: .2rem;
+    border-radius: 50%;
+
+    &.selected{
+        border: 2px solid ${props => props.theme.colors.primary};
+    }
+`

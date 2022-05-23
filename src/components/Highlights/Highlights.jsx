@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 import { Carousel } from 'react-responsive-carousel'
 import {
@@ -19,16 +19,16 @@ function Highlights(props) {
             showThumbs={false}
             showArrows={false}
             swipeable={true}
-            preventMovementUntilSwipeScrollTolerance={false}
         >
             {groups && groups.map((mappedItem, index) => {
                 const {
                     highlights,
                 } = mappedItem
 
+                const groupId = index
                 return highlights && highlights.map((acc, index) => {
-                    const key = `highlights-item-${index}`
-                    return <img key={key} src={acc.image}></img>
+                    const key = `highlights-item-${index}-${groupId}`
+                    return <img key={key} src={acc.image} alt={key}></img>
                 })
 
             })}

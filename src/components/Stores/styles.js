@@ -26,4 +26,37 @@ export const H2 = styled.h2`
 export const CustomIcon = styled.div`
     padding: 0 .6rem;
     line-height: 1.75;
+
+    &.geo{
+        border-right: 2px solid #fff;
+    }
+`
+export const Span = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: ${props => props.theme.colors.textPrimary};
+    font-weight: 500;
+    margin: 1rem 0;
+`
+export const CustomButton = styled.button`
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 15px;
+    font-weight: 100;
+    outline: 0;
+    border: 0;
+    margin: 0 .4rem 0 0;
+    font-size: 0.875rem;
+    line-height: 2;
+    letter-spacing: 0.02857em;
+    font-weight: bold
+    width: 100%;
+    background-color: ${props => props.theme.colors.primary};
+
+    >span {
+        width: 80%;
+    }
 `

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -7,14 +7,11 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container'
 import { Navbar } from '../components/Navbar';
 import { fetchFeedHighlights, fetchGroupsHighlights } from '../redux/actions/ui';
-import useFetch from '../utils/useFetch';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import Cards from '../components/Cards';
 import Feed from './../components/Feed';
 import Highlights from '../components/Highlights';
 import Stores from '../components/Stores/Stores';
-
-
 
 function Copyright(props) {
     return (
@@ -53,23 +50,17 @@ const footers = [
         description: ['Privacy policy', 'Terms of use'],
     },
 ];
-const dataCarousel = [
-    {
-        label: "",
-        image: "https://gkpb.com.br/wp-content/uploads/2021/11/giraffas-sanduiches-de-frango.jpg"
-    },
-    {
-        label: "",
-        image: "https://pbs.twimg.com/media/EwJdbkHWQAQM-2E?format=jpg&name=medium"
-    }
-]
 
 function HomeContent(props) {
     const { fetchFeedHighlights, fetchGroupsHighlights } = props;
-    React.useEffect(() => {
+    useEffect(() => {
         fetchFeedHighlights()
         fetchGroupsHighlights()
-    }, [])
+    }, [
+        fetchFeedHighlights,
+        fetchGroupsHighlights
+    ])
+
     return (
         <React.Fragment>
             <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />

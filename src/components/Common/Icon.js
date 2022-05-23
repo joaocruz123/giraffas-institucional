@@ -51,6 +51,7 @@ import {ReactComponent as PointerDivider } from '../../assets/icons/pointer_divi
 import {ReactComponent as IconArrowDown } from '../../assets/icons/icon_arrow_down.svg'
 import {ReactComponent as IconRota } from '../../assets/icons/icon_rota2.svg'
 import {ReactComponent as PingGiraffas } from '../../assets/icons/ping_giraffas.svg'
+import {ReactComponent as IconGeolocalization } from '../../assets/icons/icon_geolocalization.svg'
 
 const icons = {
     appGiraffas: AppGiraffas,
@@ -103,6 +104,7 @@ const icons = {
     arrowDown: IconArrowDown,
     rota: IconRota,
     pingGiraffas: PingGiraffas,
+    geolocalization: IconGeolocalization
 }
 
 // To-Do: Fix stroke

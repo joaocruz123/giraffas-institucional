@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { styled } from '@mui/material/styles';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
@@ -17,7 +17,8 @@ import {
     Chip,
     WrapperChip,
     Footer,
-    CustomButton
+    CustomButton,
+    Hour
 } from './styles'
 
 const Accordion = styled((props) => (
@@ -56,11 +57,15 @@ const InternalAccordionSummary = styled((props) => (
 ))(({ theme }) => ({
     padding: 0,
     margin: 0,
-    height: '40px'
+    //height: '40px'
 }));
 
 const Store = (props) => {
-    const { stores } = props;
+    const {
+        stores,
+        handlePingStoreLatLong,
+        selectedStore
+    } = props;
 
     const getDayWeek = (day) => {
         if (day === "Dom") return "Domingo"
@@ -77,7 +82,10 @@ const Store = (props) => {
             {stores && stores.map((store, index) => {
                 return <>
                     <WrapperAccordion>
-                        <Accordion className={index === 0 && `selected`} defaultExpanded={index === 0 ? true : false}>
+                        <Accordion
+                            className={selectedStore && store.id === selectedStore.id ? `selected` : ''}
+                            defaultExpanded={selectedStore && store.id === selectedStore.id ? true : false}
+                        >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ color: '#ED8B26' }} />}
                                 aria-controls={`panel1a-content-${store.id}`}
@@ -111,12 +119,21 @@ const Store = (props) => {
                                         aria-controls={`panel1a-content-internal-${store.id}`}
                                         id={`panel1a-header-internal-${store.id}`}
                                     >
-                                        <Div>
-                                            Horarios de Funcionamento <span>Ver mais</span>
-                                            <CustomIcon className='pointer'>
-                                                <Icon width={"10px"} height={"10px"} name={"arrowDown"} stroke={"textNinethColor"} />
-                                            </CustomIcon>
-                                        </Div>
+                                        <Header>
+                                            <Div>
+                                                Horarios de Funcionamento <span>Ver mais</span>
+                                                <CustomIcon className='pointer'>
+                                                    <Icon width={"10px"} height={"10px"} name={"arrowDown"} stroke={"textNinethColor"} />
+                                                </CustomIcon>
+                                            </Div>
+                                            {store.hours && store.hours.map((acc, index) => {
+                                                if (acc.today) {
+                                                    return <Hour key={index}><strong>{getDayWeek(acc.day)}</strong> {store.hasDelivery && <><strong>Delivery</strong> {acc.hour}</>} {<><strong>Retirada</strong> {acc.hour}</>}</Hour>
+                                                }
+
+                                                return null
+                                            })}
+                                        </Header>
                                     </InternalAccordionSummary>
                                     <AccordionDetails>
                                         <table>
@@ -138,14 +155,14 @@ const Store = (props) => {
                                     </AccordionDetails>
                                 </InternalAccordion>
                                 <Footer>
-                                    <CustomButton>  
+                                    <CustomButton>
                                         <CustomIcon>
                                             <Icon width={"25px"} height={"25px"} name={"appGiraffas"} stroke={"primary"} />
                                         </CustomIcon>
                                         pedir agora!
                                     </CustomButton>
-                                    <CustomButton>  
-                                        <CustomIcon>
+                                    <CustomButton onClick={() => handlePingStoreLatLong(store)}>
+                                        <CustomIcon >
                                             <Icon width={"20px"} height={"20px"} name={"rota"} stroke={"primary"} />
                                         </CustomIcon>
                                         como chegar!

@@ -116,7 +116,7 @@ export const Chip = styled.div`
 export const Footer = styled.div`
     display: flex;
     flex-direction: row;
-    margin: 0 .6rem;
+    margin: .8rem .4rem 0 .4rem;
     padding: .7rem 0;
     border-top: 1px solid ${props => props.theme.colors.lineGrey};
     justify-content: end;
@@ -138,4 +138,9 @@ export const CustomButton = styled.button`
     font-weight: bold
     min-width: 64px;
     background-color: ${props => props.theme.colors.primary};
+`
+
+export const Hour = styled.div`
+    color: ${props => props.theme.colors.textPrimary};
+    font-size: 13px;
 `

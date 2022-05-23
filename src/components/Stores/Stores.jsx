@@ -1,71 +1,191 @@
-import { Container, Grid } from '@mui/material'
+import { Container, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
+import GoogleMap from 'google-map-react';
+import Autocomplete from "react-google-autocomplete";
+import ping from './../../assets/market_pin.png'
+import pingGiraffas from './../../assets/pin_giraffas.png'
+import { GOOGLE_API_KEY } from '../../config';
+import { Icon } from './../Common';
+import Store from './Store/Store';
+import MapGiraffas from './../../assets/MapGirrafas.JPG'
+import {
+    fetchStoresByAddress,
+    setRemoveSelectedStoreByAddress,
+    setRemoveStoresByAddress,
+    setSelectedStoreByAddress,
+    getLatitudeLongitude,
+} from '../../redux/actions/stores';
 import {
     CustomIcon,
     H1,
     H2,
     Subtitle,
-    Title
-} from './styles'
-import GoogleMap from 'google-map-react';
-import Autocomplete from "react-google-autocomplete";
-import { fetchStoresByAddress } from '../../redux/actions/stores';
-import Ping from './../../assets/market_pin.png'
-import { GOOGLE_API_KEY } from '../../config';
-import { Icon } from './../Common'
-import Store from './Store/Store';
+    Title,
+    Span,
+    CustomButton
+} from './styles';
 
 const AnyReactComponent = ({ text }) => (
-    <img src={Ping} width="30" />
+    <img key={text} src={ping} width="30" alt={text} />
 );
 
 const StoreReactComponent = ({ text }) => (
-    <Icon width={"65px"} height={"65px"} name={"pingGiraffas"} stroke={"primary"} />
+    <img key={text} src={pingGiraffas} width="30" alt={text}/>
 );
 
 function Stores(props) {
-    const { stores, fetchStoresByAddress, selectedStore, locationSelectedStore } = props;
-    const [userLatitude, setUserLatitude] = useState(59.955413)
-    const [userLongitude, setUserLogintude] = useState(30.337844)
+    const {
+        stores,
+        fetchStoresByAddress,
+        selectedStore,
+        setRemoveSelectedStoreByAddress,
+        setRemoveStoresByAddress,
+        setSelectedStoreByAddress,
+        getLatitudeLongitude,
+    } = props;
     const [center, setCenter] = useState({ lat: 59.95, lng: 30.33 })
     const [zoom, setZoom] = useState(11)
-    const [addressStore, setAddressStore] = useState(null)
-    const [storeLatitude, setStoreLatitude] = useState(59.955413)
-    const [storeLongitude, setStoreLogintude] = useState(30.337844)
+    const [places, setPlaces] = useState([])
+    const [maps, setMaps] = useState(null)
+    const [map, setMap] = useState(null)
+
     useEffect(() => {
-        if(selectedStore){
-            setAddressStore(true)
-            setStoreLatitude(setStoreLogintude.lat)
-            setStoreLogintude(setStoreLogintude.lng)
-        }
-    }, [selectedStore])
+        setRemoveSelectedStoreByAddress(null)
+        setRemoveStoresByAddress(null)
+    }, [
+        setRemoveSelectedStoreByAddress,
+        setRemoveStoresByAddress
+    ])
+
+    const getMapBounds = (map, maps, places) => {
+        const bounds = new maps.LatLngBounds();
+
+        places.forEach((place) => {
+            bounds.extend(new maps.LatLng(
+                place.lat,
+                place.lng,
+            ));
+        });
+        return bounds;
+    };
+
+    const bindResizeListener = (map, maps, bounds) => {
+        maps.event.addDomListenerOnce(map, 'idle', () => {
+            maps.event.addDomListener(window, 'resize', () => {
+                map.fitBounds(bounds);
+            });
+        });
+    };
+
+    const apiIsLoaded = (map, maps, places) => {
+        console.log({ map, maps, places })
+        const bounds = getMapBounds(map, maps, places);
+        map.fitBounds(bounds);
+        bindResizeListener(map, maps, bounds);
+    };
 
     const handleStoresByAddress = (places) => {
         const lat = places?.geometry && places?.geometry?.location && places?.geometry?.location?.lat()
         const long = places?.geometry && places?.geometry?.location && places?.geometry?.location?.lng()
 
-        setUserLatitude(lat)
-        setUserLogintude(long)
+        const ping = [{
+            id: "user",
+            name: "userAddress",
+            lat: lat,
+            lng: long
+        }]
+
         setCenter({ lat: lat, lng: long })
-        setZoom(11)
         fetchStoresByAddress({ lat, long })
+        setZoom(11)
+        setPlaces(ping)
+    }
+
+    const handlePingStoreLatLong = (store) => {
+        getLatitudeLongitude(store.address)
+            .then((response) => {
+                let points = places
+
+                const storePing = {
+                    id: "store",
+                    name: store.name,
+                    lat: response.data.lat,
+                    lng: response.data.lng
+                }
+                if (points.length > 1) {
+                    points.splice(1, 1)
+                    const newPlaces = [...points, storePing]
+                    setPlaces(newPlaces)
+                    apiIsLoaded(map, maps, newPlaces)
+                } else {
+                    const newPlaces = [...points, storePing]
+                    setPlaces(newPlaces)
+                    apiIsLoaded(map, maps, newPlaces)
+                }
+            })
+            .catch((e) => console.log(e))
+        setSelectedStoreByAddress(store)
+        apiIsLoaded(map, maps, places)
+    }
+
+    async function handleLocationClick() {
+        await navigator.geolocation.getCurrentPosition(async function (position) {
+            const {
+                latitude,
+                longitude
+            } = position.coords
+
+            setCenter({ lat: latitude, lng: longitude })
+            fetchStoresByAddress({ latitude, longitude })
+            setPlaces([{
+                id: "user",
+                name: "userAddress",
+                lat: latitude,
+                lng: longitude
+            }])
+        })
     }
 
     return (
         <Container disableGutters component="main" sx={{ pt: 1, pb: 4 }}>
             <Grid container spacing={4}>
                 <Grid item xs={6}>
-                    <div style={{ height: '400px', width: '100%' }}>
-                        <GoogleMap
-                            apiKey={GOOGLE_API_KEY}
-                            center={center}
-                            zoom={zoom}
-                        >
-                            <AnyReactComponent lat={userLatitude} lng={userLongitude} text={'User address'} />
-                            {addressStore && <StoreReactComponent lat={storeLatitude} lng={storeLongitude} text={"Store address"} />}
-                        </GoogleMap>
-                    </div>
+                    {places && places.length > 0 ?
+                        <div style={{ height: '400px', width: '100%' }}>
+                            <GoogleMap
+                                apiKey={GOOGLE_API_KEY}
+                                center={center}
+                                zoom={zoom}
+                                refreshSizeToken
+                                yesIWantToUseGoogleMapApiInternals
+                                onGoogleApiLoaded={({ map, maps }) => {
+                                    setMaps(maps)
+                                    setMap(map)
+                                    apiIsLoaded(map, maps, places)
+                                }}
+                            >
+                                {places.map((place) => {
+                                    if (place.id === "store") {
+                                        return <StoreReactComponent
+                                            key={place.id}
+                                            text={place.name}
+                                            lat={place.lat}
+                                            lng={place.lng}
+                                        />
+                                    } else {
+                                        return <AnyReactComponent
+                                            key={place.id}
+                                            text={place.name}
+                                            lat={place.lat}
+                                            lng={place.lng}
+                                        />
+                                    }
+                                })}
+                            </GoogleMap>
+                        </div> :
+                        <img src={MapGiraffas} width="100%" style={{ padding: ".6rem 0 0 0" }} alt="map hover init"/>
+                    }
                 </Grid>
                 <Grid item xs={6}>
                     <Title>
@@ -87,10 +207,9 @@ function Stores(props) {
                             borderRadius: "15px",
                             border: "1px solid #CECECE",
                             color: "#757575",
-                            padding: ".3rem .6rem",
+                            padding: ".4rem .6rem",
                         }}
                         onPlaceSelected={(place) => {
-                            console.log(place)
                             handleStoresByAddress(place);
                         }}
                         options={{
@@ -101,7 +220,17 @@ function Stores(props) {
                         defaultValue="São Paulo"
                     />
 
-                    <Store stores={stores} />
+                    {stores ? <Store stores={stores} handlePingStoreLatLong={handlePingStoreLatLong} selectedStore={selectedStore} /> : null}
+
+                    {!stores ? <>
+                        <Span>OU</Span>
+                        <CustomButton onClick={() => handleLocationClick()}>
+                            <CustomIcon className='geo'>
+                                <Icon width={"25px"} height={"25px"} name={"geolocalization"} stroke={"primary"} />
+                            </CustomIcon>
+                            <span>Ativar geolocalização</span>
+                        </CustomButton>
+                    </> : null}
                 </Grid>
             </Grid>
         </Container>
@@ -112,11 +241,15 @@ const mapStateToProps = (state) => {
     return {
         stores: state.stores.stores,
         selectedStore: state.stores.selectedStore,
-        locationSelectedStore: state.stores.locationSelectedStore
+        markets: state.stores.markets
     };
 }
 
 export default connect(
     mapStateToProps, {
-    fetchStoresByAddress
+    fetchStoresByAddress,
+    setRemoveSelectedStoreByAddress,
+    setRemoveStoresByAddress,
+    setSelectedStoreByAddress,
+    getLatitudeLongitude,
 })(Stores);
