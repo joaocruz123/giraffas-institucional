@@ -10,8 +10,8 @@ export const Nav = styled.nav`
 `
 
 export const CustomButton = styled.button`
-display: flex;
-flex-direction: row;
+    display: flex;
+    flex-direction: row;
     color: #fff;
     padding: 6px 16px;
     border-radius: 4px;

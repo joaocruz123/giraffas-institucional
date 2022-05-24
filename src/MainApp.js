@@ -9,9 +9,12 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import HomePage from './pages/HomePage'
+import Cardapio from './pages/Cardapio'
 
 import { THEME } from './config'
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
+import Routes from './Routes'
+import { Navbar } from './components/Navbar'
 
 const Wrapper = styled.div`
   background: #fff;
@@ -66,26 +69,8 @@ const MainApp = ({ storeInfo }) => {
         <Helmet>
           <title>{process.env.REACT_APP_TITLE}</title>
         </Helmet>
-        <Router>
-          <div className="App">
-            <Switch>
-              <Route path="/" component={HomePage} />
-            </Switch>
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, display: { md: 'none', xs: 'block' }  }} elevation={3}>
-                <BottomNavigation
-                    showLabels
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }}
-                >
-                    <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-                    <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-                    <BottomNavigationAction label="Archive" icon={<LocationOnIcon />} />
-                </BottomNavigation>
-            </Paper>
-          </div>
-        </Router>
+        <Navbar/>
+        <Routes />
       </ThemeProvider>
     )
   }

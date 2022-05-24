@@ -9,7 +9,7 @@ const initialState = {
     markets: null
 }
 
-const UiReducer = (state = stores || initialState, action) => {
+const StoreReducer = (state = stores || initialState, action) => {
     let newState = state;
     switch (action.type) {
         case actionTypes.GET_STORES_BY_ADDRESS: {
@@ -46,4 +46,4 @@ const UiReducer = (state = stores || initialState, action) => {
     return newState
 };
 
-export default UiReducer;
+export default StoreReducer;

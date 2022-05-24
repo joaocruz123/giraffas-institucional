@@ -10,7 +10,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {
     Nav,
     CustomButton,
-    CustomIcon
+    CustomIcon,
+    StyledNavLink
 } from './styles'
 
 export function Navbar() {
@@ -56,7 +57,7 @@ export function Navbar() {
                         </Link>
                         <Link
                             variant="button"
-                            href="#"
+                            href="/cardapio"
                             underline="none"
                             sx={{
                                 my: 1, mx: 1.5, color: "#fff",

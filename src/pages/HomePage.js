@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import GlobalStyles from '@mui/material/GlobalStyles';
-import { Navbar } from '../components/Navbar';
 import { fetchFeedHighlights, fetchGroupsHighlights } from '../redux/actions/ui';
 import { connect } from 'react-redux';
 import Cards from '../components/Cards';
@@ -11,7 +10,7 @@ import Stores from '../components/Stores/Stores';
 import SocialMedia from '../components/SocialMedia';
 import Footer from '../components/Footer';
 
-function HomeContent(props) {
+const HomeContent = (props) => {
     const { fetchFeedHighlights, fetchGroupsHighlights } = props;
     useEffect(() => {
         fetchFeedHighlights()
@@ -25,13 +24,12 @@ function HomeContent(props) {
         <React.Fragment>
             <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
             <CssBaseline />
-            <Navbar />
             <Highlights />
             <Feed />
             <Cards />
             <Stores />
             <SocialMedia />
-            <Footer /> 
+            <Footer />
         </React.Fragment>
     );
 }

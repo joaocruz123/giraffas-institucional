@@ -1,4 +1,5 @@
 export const mapFetchStoresByAddressResponse = (response) => {
+    console.log()
     return response["Estabelecimentos"].map((item) => {
         const hours = item["HorarioFuncionamentoTexto"].map((item) => {
             return {
