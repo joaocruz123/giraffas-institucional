@@ -46,7 +46,7 @@ function Footer() {
                     <Grid item xs={12} md={5} sx={{ display: { md: 'block', xs: 'none' } }}>
                         <Session>
                             <Title>
-                                Baixe nosso APP!
+                                Baixe nosso APP! 
                             </Title>
                             <SubTitle>
                                 Peça Delivery e receba onde estiver ou <br />
