@@ -1,4 +1,4 @@
-import { Container, Dialog, Grid, Paper, Typography } from '@mui/material'
+import { Container, Dialog, Grid, Paper } from '@mui/material'
 import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { styled } from '@mui/material/styles';
@@ -16,8 +16,8 @@ const Item = styled(Paper)(({ theme }) => ({
 	justifyContent: 'space-between',
 	padding: theme.spacing(1),
 	textAlign: 'center',
-	minHeight: "11.375rem",
-	maxHeight: "11.375rem",
+	minHeight: "12.875rem",
+	maxHeight: "12.875rem",
 	color: theme.palette.text.secondary,
 	cursor: "pointer"
 }));
@@ -40,7 +40,7 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
 	<MuiAccordionSummary {...props} />
-))(({ theme }) => ({
+))(() => ({
 	padding: 0,
 	margin: 0,
 	backgroundColor: '#efefef'
@@ -115,7 +115,7 @@ function Feed(props) {
 						</WrapperImg>
 						<H1>{selectedProduct.name}</H1>
 						<Description>{selectedProduct.description}</Description>
-						<Accordion>
+						{selectedProduct.nutritionalTable && <Accordion>
 							<AccordionSummary
 								expandIcon={<ExpandMoreIcon sx={{ color: '#949494' }} />}
 								aria-controls={`panel1a-content-${selectedProduct.id}`}
@@ -129,7 +129,7 @@ function Feed(props) {
 									{selectedProduct.nutritionalTable}
 								</Body>
 							</AccordionDetails>
-						</Accordion>
+						</Accordion>}
 						<CustomButton>
 							Quero Agora!
 						</CustomButton>

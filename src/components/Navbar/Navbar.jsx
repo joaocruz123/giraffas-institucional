@@ -1,21 +1,16 @@
-import { AppBar, BottomNavigation, BottomNavigationAction, Button, Paper, Toolbar, Typography } from '@mui/material'
+import { AppBar, Toolbar, Typography } from '@mui/material'
 import Link from '@mui/material/Link';
 import React from 'react'
-import { fetchGroupsHighlights } from '../../redux/actions/ui';
 import Logo from './../../assets/logo_giraffas.png'
 import { Icon } from './../Common'
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import {
     Nav,
     CustomButton,
     CustomIcon,
-    StyledNavLink
 } from './styles'
 
 export function Navbar() {
-    const [value, setValue] = React.useState(0);
+    // const [value, setValue] = React.useState(0);
     return (
         <>
             <AppBar

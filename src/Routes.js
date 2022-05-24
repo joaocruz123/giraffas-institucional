@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Cardapio from './pages/Cardapio'
 import HomePage from './pages/HomePage'
 
-const Routes = (props) => {
+const Routes = () => {
   return <BrowserRouter>
     <Switch>
       <Route exact path="/" component={HomePage} />

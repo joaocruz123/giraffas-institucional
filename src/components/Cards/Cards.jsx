@@ -1,11 +1,6 @@
-import { Avatar, Container, Grid, Paper, Stack } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import React from 'react'
 import { connect } from 'react-redux';
-
-import {
-    Div
-} from './styles'
-import { useDispatch } from 'react-redux';
 
 function Cards(props) {
     const { feed } = props;

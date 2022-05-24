@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import styled, { ThemeProvider } from 'styled-components'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import ReactLoading from "react-loading";
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import HomePage from './pages/HomePage'
-import Cardapio from './pages/Cardapio'
 
 import { THEME } from './config'
-import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material'
 import Routes from './Routes'
 import { Navbar } from './components/Navbar'
 
@@ -25,29 +18,13 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center
 `
-
-const MainContainer = styled.div`
-  display: flex
-  flex-direction: row
-`
-
-const Content = styled.div`
-  position: absolute;
-  top: ${props => props.theme.dimensions.headerHeightDesktop}px;
-  left: ${props => props.theme.dimensions.navBarWidth}px;
-  width: calc(100% - ${props => props.theme.dimensions.navBarWidth}px);
-  overflow-y: auto;
-  overflow-x: hidden;
-`
-
-const MainApp = ({ storeInfo }) => {
+const MainApp = () => {
   const dispatch = useDispatch()
-  const [error, setError] = useState('')
   const localAccess = localStorage.getItem('auth') ? localStorage.getItem('auth') : null
   const logout = localStorage.getItem('logout') ? localStorage.getItem('logout') : null
   const [loading, setLoading] = useState(true)
-  const [ value, setValue] = useState(0)
-  useEffect(() => {
+  
+	useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 3000)
