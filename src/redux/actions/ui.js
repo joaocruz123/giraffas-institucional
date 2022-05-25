@@ -6,10 +6,10 @@ export const actionTypes = {
     SET_NEW_OPEN_HOURS: 'SET_NEW_OPEN_HOURS'
 }
 
-export const fetchGroupsHighlights = () => async (dispatch, getState, api) => {
+export const fetchGroupsHighlights = (typePlatform) => async (dispatch, getState, api) => {
     let result = {}
     try {
-        const url =`Grupos/Listar?tipoGrupo=1&tipoPlataforma=3`;
+        const url =`Grupos/Listar?tipoGrupo=1&tipoPlataforma=${typePlatform}`;
         const apiResponse = await api.get(url, {});
        
         const response = mapFetchHighlightsResponse(apiResponse.data);

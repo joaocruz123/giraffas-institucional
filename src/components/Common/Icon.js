@@ -52,6 +52,11 @@ import {ReactComponent as IconArrowDown } from '../../assets/icons/icon_arrow_do
 import {ReactComponent as IconRota } from '../../assets/icons/icon_rota2.svg'
 import {ReactComponent as PingGiraffas } from '../../assets/icons/ping_giraffas.svg'
 import {ReactComponent as IconGeolocalization } from '../../assets/icons/icon_geolocalization.svg'
+import {ReactComponent as Menu } from '../../assets/nav/menu.svg'
+import {ReactComponent as MenuCardapio } from '../../assets/nav/menu_cardapio.svg'
+import {ReactComponent as MenuCupons } from '../../assets/nav/menu_cupons.svg'
+import {ReactComponent as MenuLojas } from '../../assets/nav/menu_lojas.svg'
+import {ReactComponent as MenuPecaJa } from '../../assets/nav/menu_peca_ja.svg'
 
 const icons = {
     appGiraffas: AppGiraffas,
@@ -104,7 +109,12 @@ const icons = {
     arrowDown: IconArrowDown,
     rota: IconRota,
     pingGiraffas: PingGiraffas,
-    geolocalization: IconGeolocalization
+    geolocalization: IconGeolocalization,
+		menu:Menu,
+		menuCardapio: MenuCardapio,
+		menuCupons: MenuCupons,
+		menuLojas: MenuLojas,
+		menuPeca: MenuPecaJa
 }
 
 // To-Do: Fix stroke

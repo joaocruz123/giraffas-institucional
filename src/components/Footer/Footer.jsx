@@ -12,7 +12,10 @@ import {
     Input,
     H1,
     H2,
-    SessionTree
+    SessionTree,
+		SessionMobile,
+		TitleMobile,
+		ImagensMobile
 } from './styles'
 import { connect } from 'react-redux'
 import { Grid, Link, Typography } from '@mui/material'
@@ -57,7 +60,7 @@ function Footer() {
                     <Grid item xs={12} md={2} sx={{ display: { md: 'block', xs: 'none' } }}>
                         <img src={QRCode} alt="acesso ao app" width="100%" />
                     </Grid>
-                    <Grid item xs={12} md={5}>
+                    <Grid item xs={12} md={5} sx={{ display: { md: 'block', xs: 'none' } }}>
                         <SessionTwo>
                             <TitleTwo>
                                 Escanei o QR Code e aproveite!
@@ -70,6 +73,16 @@ function Footer() {
                                 <img src={Stores} alt="acesso ao app" width="280" height="40" style={{ margin: "2rem 0 0 0" }} />
                             </Imagens>
                         </SessionTwo>
+                    </Grid>
+										<Grid item xs={12} md={5} sx={{ display: { md: 'none', xs: 'block' } }}>
+                        <SessionMobile>
+                            <TitleMobile>
+                                Baixe nosso App!
+                            </TitleMobile>
+                            <ImagensMobile>
+                                <img src={Stores} alt="acesso ao app" width="280" height="40" style={{ margin: "2rem 0 0 0" }} />
+                            </ImagensMobile>
+                        </SessionMobile>
                     </Grid>
                 </Grid>
             </Wrapper>

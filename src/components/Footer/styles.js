@@ -46,6 +46,12 @@ export const TitleTwo = styled.div`
     text-align: end;
     font-weight: 200;
 `
+export const TitleMobile = styled.div`
+    font-size: 32px;    
+    color: ${props => props.theme.colors.white};
+    text-align: center;
+    font-weight: 200;
+`
 export const SubTitleTwo = styled.div`
     font-size: 18px;    
     color: ${props => props.theme.colors.white};
@@ -56,6 +62,14 @@ export const SessionTwo = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: start;
+    height: 100%;
+    padding: .8rem 0 0 0;
+`
+
+export const SessionMobile = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
     padding: .8rem 0 0 0;
 `
@@ -82,7 +96,16 @@ export const Imagens = styled.div`
         display: none;
     }
 `
+export const ImagensMobile = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+		align-itens: center;
 
+    @media (max-width: 20rem) {
+        display: none;
+    }
+`
 export const Input = styled.input`
       border-radius: 12px;
       padding: .6rem .8rem;

@@ -1,6 +1,6 @@
-import { AppBar, Toolbar, Typography } from '@mui/material'
+import { AppBar, BottomNavigation, BottomNavigationAction, Paper, Toolbar, Typography } from '@mui/material'
 import Link from '@mui/material/Link';
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from './../../assets/logo_giraffas.png'
 import { Icon } from './../Common'
 import {
@@ -10,7 +10,8 @@ import {
 } from './styles'
 
 export function Navbar() {
-	// const [value, setValue] = React.useState(0);
+	const [value, setValue] = useState(0);
+
 	return (
 		<>
 			<AppBar
@@ -23,7 +24,7 @@ export function Navbar() {
 					<Link
 						href="/"
 					>
-						<img src={Logo} width="150" alt="Logo principal"/>
+						<img src={Logo} width="150" alt="Logo principal" />
 					</Link>
 					<Nav>
 						<Link
@@ -93,6 +94,28 @@ export function Navbar() {
 					</CustomButton>
 				</Toolbar>
 			</AppBar>
+			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1 }} elevation={3}>
+				<BottomNavigation
+					showLabels
+					value={value}
+					onChange={(event, newValue) => {
+						setValue(newValue);
+					}}
+				>
+					<BottomNavigationAction label="PEÇA JÁ" icon={
+						<Icon width={"24px"} height={"24px"} name={"menuPeca"} stroke={"textPrimary"} />
+					} />
+					<BottomNavigationAction label="CUPONS" icon={
+						<Icon width={"24px"} height={"24px"} name={"menuCupons"} stroke={"textPrimary"} />
+					} />
+					<BottomNavigationAction label="CARDÁPIO" icon={
+						<Icon width={"36px"} height={"36px"} name={"menuCardapio"} stroke={"textPrimary"} />
+					} />
+					<BottomNavigationAction label="LOJAS" icon={
+						<Icon width={"24px"} height={"24px"} name={"menuLojas"} stroke={"textPrimary"} />
+					} />
+				</BottomNavigation>
+			</Paper>
 		</>
 
 	)

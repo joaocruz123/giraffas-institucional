@@ -14,8 +14,8 @@ import {
     CustomIcon,
     Header,
     Div,
-    // Chip,
-    // WrapperChip,
+    Chip,
+    WrapperChip,
     Footer,
     CustomButton,
     Hour
@@ -106,14 +106,14 @@ const Store = (props) => {
                                 </Header>
                             </AccordionSummary>
                             <AccordionDetails>
-                                {/* {store.tags.length > 0 && <>
+                                {store.tags.length > 0 && <>
                                     <Div>Nessa loja você encontra</Div>
                                     <WrapperChip>
                                         {store.tags.map((acc) => {
-                                            return <Chip>{acc}</Chip>
+                                            return <Chip>{acc.name}</Chip>
                                         })}
                                     </WrapperChip>
-                                </>} */}
+                                </>}
                                 <InternalAccordion>
                                     <InternalAccordionSummary
                                         aria-controls={`panel1a-content-internal-${store.id}`}

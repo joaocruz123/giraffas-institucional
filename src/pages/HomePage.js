@@ -9,39 +9,47 @@ import Highlights from '../components/Highlights';
 import Stores from '../components/Stores/Stores';
 import SocialMedia from '../components/SocialMedia';
 import Footer from '../components/Footer';
+import { useDeviceLayout } from '../components/utilities/useCustomLayout';
+import { Button } from '@mui/material';
 
 const HomeContent = (props) => {
-    const { fetchFeedHighlights, fetchGroupsHighlights } = props;
-    useEffect(() => {
-        fetchFeedHighlights()
-        fetchGroupsHighlights()
-    }, [
-        fetchFeedHighlights,
-        fetchGroupsHighlights
-    ])
+	const { fetchFeedHighlights, fetchGroupsHighlights } = props;
 
-    return (
-        <React.Fragment>
-            <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-            <CssBaseline />
-            <Highlights />
-            <Feed />
-            <Cards />
-            <Stores />
-            <SocialMedia />
-            <Footer />
-        </React.Fragment>
-    );
+	const isMobile = useDeviceLayout({
+		isMobile: true
+	})
+
+	useEffect(() => {
+		//const typePlatform = isMobile ? 4 : 3
+		fetchFeedHighlights()
+		fetchGroupsHighlights(3)
+	}, [
+		fetchFeedHighlights,
+		fetchGroupsHighlights
+	])
+
+	return (
+		<React.Fragment>
+			<GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
+			<CssBaseline />
+			<Highlights />
+			<Feed />
+			<Cards />
+			<Stores />
+			<SocialMedia />
+			<Footer />
+		</React.Fragment>
+	);
 }
 
 const mapStateToProps = (state) => {
-    return {
-        groups: state.ui.groups
-    };
+	return {
+		groups: state.ui.groups
+	};
 }
 
 export default connect(
-    mapStateToProps, {
-    fetchFeedHighlights,
-    fetchGroupsHighlights
+	mapStateToProps, {
+	fetchFeedHighlights,
+	fetchGroupsHighlights
 })(HomeContent);

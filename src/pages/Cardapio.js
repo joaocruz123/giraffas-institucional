@@ -6,9 +6,15 @@ import Highlights from '../components/Highlights';
 import { fetchMenuStore } from '../redux/actions/menu';
 import { STORE_ID } from '../config';
 import Menu from '../components/Menu';
+import { fetchGroupsHighlights } from '../redux/actions/ui';
 
 const Cardapio = (props) => {
-    const { fetchMenuStore } = props;
+    const { fetchMenuStore, fetchGroupsHighlights } = props;
+    useEffect(() => {
+        fetchGroupsHighlights()
+    }, [
+        fetchGroupsHighlights
+    ])
     useEffect(() => {
         const storeId = STORE_ID
         fetchMenuStore(storeId)
@@ -34,5 +40,6 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps, {
-        fetchMenuStore
+        fetchMenuStore,
+				fetchGroupsHighlights
 })(Cardapio);
