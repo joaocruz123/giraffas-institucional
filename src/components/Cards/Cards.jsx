@@ -11,7 +11,7 @@ function Cards(props) {
                 {feed && feed.map((item, index) => {
                     const key = `card-image-${index}`
 
-                    return <Grid item xs={12} md={4}>
+                    return <Grid item xs={12} md={4} key={key}>
                         <img key={key} src={item.image} width="100%"/>
                     </Grid>
                 })}

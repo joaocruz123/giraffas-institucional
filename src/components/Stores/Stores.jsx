@@ -136,8 +136,9 @@ function Stores(props) {
                 longitude
             } = position.coords
 
+						console.log({latitude, longitude})
             setCenter({ lat: latitude, lng: longitude })
-            fetchStoresByAddress({ latitude, longitude })
+            fetchStoresByAddress({ lat: latitude, long: longitude })
             setPlaces([{
                 id: "user",
                 name: "userAddress",

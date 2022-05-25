@@ -14,8 +14,8 @@ import {
     CustomIcon,
     Header,
     Div,
-    Chip,
-    WrapperChip,
+    // Chip,
+    // WrapperChip,
     Footer,
     CustomButton,
     Hour
@@ -106,14 +106,14 @@ const Store = (props) => {
                                 </Header>
                             </AccordionSummary>
                             <AccordionDetails>
-                                {store.tags.length > 0 && <>
+                                {/* {store.tags.length > 0 && <>
                                     <Div>Nessa loja você encontra</Div>
                                     <WrapperChip>
                                         {store.tags.map((acc) => {
                                             return <Chip>{acc}</Chip>
                                         })}
                                     </WrapperChip>
-                                </>}
+                                </>} */}
                                 <InternalAccordion>
                                     <InternalAccordionSummary
                                         aria-controls={`panel1a-content-internal-${store.id}`}
@@ -143,14 +143,14 @@ const Store = (props) => {
                                                 <th className='bold'>Balcão</th>
                                             </tr>
 
-                                            {store.hours && store.hours.map((acc) => {
+                                            {/* {store.hours && store.hours.map((acc) => {
                                                 return <><tr className={acc.today ? 'selected' : ''}>
                                                     <td className={acc.today ? 'selected-day' : 'bold'}>{getDayWeek(acc.day)}</td>
                                                     {store.hasDelivery && <td className={acc.today ? 'selected' : ''}>{acc.hour}</td>}
                                                     <td className={acc.today ? 'selected' : ''} >{acc.hour}</td>
                                                 </tr>
                                                 </>
-                                            })}
+                                            })} */}
                                         </table>
                                     </AccordionDetails>
                                 </InternalAccordion>
