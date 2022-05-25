@@ -7,39 +7,47 @@ import { fetchMenuStore } from '../redux/actions/menu';
 import { STORE_ID } from '../config';
 import Menu from '../components/Menu';
 import { fetchGroupsHighlights } from '../redux/actions/ui';
+import { useDeviceLayout } from '../components/utilities/useCustomLayout';
 
 const Cardapio = (props) => {
-    const { fetchMenuStore, fetchGroupsHighlights } = props;
-    useEffect(() => {
-        fetchGroupsHighlights()
-    }, [
-        fetchGroupsHighlights
-    ])
-    useEffect(() => {
-        const storeId = STORE_ID
-        fetchMenuStore(storeId)
-    }, [])
+	const { fetchMenuStore, fetchGroupsHighlights } = props;
+	const isMobile = useDeviceLayout({
+		isMobile: true
+	})
+	useEffect(() => {
+		const typePlatform = isMobile ? 4 : 3
+		fetchGroupsHighlights(typePlatform)
+	}, [
+		isMobile,
+		fetchGroupsHighlights
+	])
+	useEffect(() => {
+		const storeId = STORE_ID
+		fetchMenuStore(storeId)
+	}, [
+		fetchMenuStore
+	])
 
-    return (
-        <>
-            <React.Fragment>
-                <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-                <CssBaseline />
-                <Highlights />
-                <Menu />
-            </React.Fragment>
-        </>
-    );
+	return (
+		<>
+			<React.Fragment>
+				<GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
+				<CssBaseline />
+				<Highlights />
+				<Menu />
+			</React.Fragment>
+		</>
+	);
 }
 
 const mapStateToProps = (state) => {
-    return {
+	return {
 
-    };
+	};
 }
 
 export default connect(
-    mapStateToProps, {
-        fetchMenuStore,
-				fetchGroupsHighlights
+	mapStateToProps, {
+	fetchMenuStore,
+	fetchGroupsHighlights
 })(Cardapio);
