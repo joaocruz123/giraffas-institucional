@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
     
     table {
         border-collapse: collapse;
-        width: 60%;
+        width: 70%;
         font-size: 14px;
     }
     

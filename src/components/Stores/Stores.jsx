@@ -79,7 +79,6 @@ function Stores(props) {
     };
 
     const apiIsLoaded = (map, maps, places) => {
-        console.log({ map, maps, places })
         const bounds = getMapBounds(map, maps, places);
         map.fitBounds(bounds);
         bindResizeListener(map, maps, bounds);
@@ -218,7 +217,7 @@ function Stores(props) {
                             types: ['address'],
                             componentRestrictions: { country: "br" },
                         }}
-                        defaultValue="Av. Faria Lima, 1234"
+                        defaultValue=""
                     />
 
                     {stores ? <Store stores={stores} handlePingStoreLatLong={handlePingStoreLatLong} selectedStore={selectedStore} /> : null}

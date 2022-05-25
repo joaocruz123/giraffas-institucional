@@ -30,6 +30,8 @@ export const mapFetchStoresByAddressResponse = (response) => {
 			distance: item["Distancia"],
 			hoursPickup: hoursPickup,
 			hoursDelivery: hoursDelivery,
+			latitude: item["LatitudeEstabelecimento"],
+			longitude: item["LongitudeEstabelecimento"],
 			name: item["Nome"],
 			hasDelivery: item["PossuiDelivery"],
 			tags: tags

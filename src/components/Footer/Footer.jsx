@@ -18,7 +18,7 @@ import {
 		ImagensMobile
 } from './styles'
 import { connect } from 'react-redux'
-import { Grid, Link, Typography } from '@mui/material'
+import { Grid, Link } from '@mui/material'
 import QRCode from './../../assets/qrcode.png'
 import Arrow from './../../assets/arrow.png'
 import Stores from './../../assets/stores.png'
@@ -97,11 +97,11 @@ function Footer() {
                     </Grid>
                     <Grid item xs={6} sm={1}>
                         <Session>
-                            {footer1.map((footer) => (
+                            {footer1.map((footer, index) => (
                                 <ul>
                                     {footer.description.map((item) => (
                                         <li key={item}>
-                                            <Link variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
+                                            <Link key={`footer1-${index}`} variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
                                                 {item}
                                             </Link>
                                         </li>
@@ -112,11 +112,11 @@ function Footer() {
                     </Grid>
                     <Grid item xs={6} sm={2}>
                         <Session>
-                            {footer2.map((footer) => (
+                            {footer2.map((footer, index) => (
                                 <ul>
                                     {footer.description.map((item) => (
                                         <li key={item}>
-                                            <Link variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
+                                            <Link  key={`footer2-${index}`} variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
                                                 {item}
                                             </Link>
                                         </li>
