@@ -94,7 +94,7 @@ export function Navbar() {
 					</CustomButton>
 				</Toolbar>
 			</AppBar>
-			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1 }} elevation={3}>
+			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1, display: { md: 'none', xs: 'none' }}} elevation={3}>
 				<BottomNavigation
 					showLabels
 					value={value}
