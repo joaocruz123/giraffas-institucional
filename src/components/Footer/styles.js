@@ -102,6 +102,11 @@ export const ImagensMobile = styled.div`
     justify-content: center;
 		align-itens: center;
 
+		>a{
+			width: 50%;
+			padding: .5rem
+		}
+
     @media (max-width: 20rem) {
         display: none;
     }
