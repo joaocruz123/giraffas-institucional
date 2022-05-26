@@ -1,17 +1,18 @@
-import { AppBar, BottomNavigation, BottomNavigationAction, Paper, Toolbar, Typography } from '@mui/material'
+import { AppBar, Paper, Toolbar, Typography } from '@mui/material'
 import Link from '@mui/material/Link';
-import React, { useState } from 'react'
+import React from 'react'
 import Logo from './../../assets/logo_giraffas.png'
 import { Icon } from './../Common'
 import {
 	Nav,
 	CustomButton,
 	CustomIcon,
+	ItemMenu,
+	Menu,
+	CustomIconMenu
 } from './styles'
 
 export function Navbar() {
-	const [value, setValue] = useState(0);
-
 	return (
 		<>
 			<AppBar
@@ -94,27 +95,39 @@ export function Navbar() {
 					</CustomButton>
 				</Toolbar>
 			</AppBar>
-			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1, display: { md: 'none', xs: 'none' }}} elevation={3}>
-				<BottomNavigation
-					showLabels
-					value={value}
-					onChange={(event, newValue) => {
-						setValue(newValue);
-					}}
-				>
-					<BottomNavigationAction label="PEÇA JÁ" icon={
-						<Icon width={"24px"} height={"24px"} name={"menuPeca"} stroke={"textPrimary"} />
-					} />
-					<BottomNavigationAction label="CUPONS" icon={
-						<Icon width={"24px"} height={"24px"} name={"menuCupons"} stroke={"textPrimary"} />
-					} />
-					<BottomNavigationAction label="CARDÁPIO" icon={
-						<Icon width={"36px"} height={"36px"} name={"menuCardapio"} stroke={"textPrimary"} />
-					} />
-					<BottomNavigationAction label="LOJAS" icon={
-						<Icon width={"24px"} height={"24px"} name={"menuLojas"} stroke={"textPrimary"} />
-					} />
-				</BottomNavigation>
+			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1, display: { md: 'none', xs: 'block' } }} elevation={3}>
+				<Menu>
+					<ItemMenu href='/'>
+						<CustomIconMenu>
+							<Icon width={"24px"} height={"24px"} name={"menuPeca"} stroke={"textPrimary"} />
+						</CustomIconMenu>
+						<p>Peça Já</p>
+					</ItemMenu>
+					<ItemMenu href='/'>
+						<CustomIconMenu>
+							<Icon width={"24px"} height={"24px"} name={"menuCupons"} stroke={"textPrimary"} />
+						</CustomIconMenu>
+						<p>Cupons</p>
+					</ItemMenu>
+					<ItemMenu href='/cardapio'>
+						<CustomIconMenu>
+							<Icon width={"24px"} height={"24px"} name={"menuCardapio"} stroke={"textPrimary"} />
+						</CustomIconMenu>
+						<p>Cardápio</p>
+					</ItemMenu>
+					<ItemMenu>
+						<CustomIconMenu>
+							<Icon width={"24px"} height={"24px"} name={"menuLojas"} stroke={"textPrimary"} />
+						</CustomIconMenu>
+						<p>Lojas</p>
+					</ItemMenu>
+					<ItemMenu>
+						<CustomIconMenu>
+							<Icon width={"24px"} height={"24px"} name={"menu"} stroke={"textPrimary"} />
+						</CustomIconMenu>
+						<p>Menu</p>
+					</ItemMenu>
+				</Menu>
 			</Paper>
 		</>
 

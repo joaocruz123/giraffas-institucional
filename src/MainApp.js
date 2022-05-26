@@ -8,6 +8,7 @@ import ReactLoading from "react-loading";
 import { THEME } from './config'
 import Routes from './Routes'
 import { Navbar } from './components/Navbar'
+import { useDeviceLayout } from './components/utilities/useCustomLayout'
 
 const Wrapper = styled.div`
   background: #fff;
@@ -24,6 +25,10 @@ const MainApp = () => {
   const logout = localStorage.getItem('logout') ? localStorage.getItem('logout') : null
   const [loading, setLoading] = useState(true)
   
+	const isMobile = useDeviceLayout({
+		isMobile: true
+	})
+
 	useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -37,7 +42,7 @@ const MainApp = () => {
   if (loading) {
     return (
       <Wrapper>
-        <ReactLoading type="spin" color="#ED8B26" height={'3%'} width={'3%'} />
+        <ReactLoading type="spin" color="#ED8B26" height={isMobile ? '10%' : '3%'} width={isMobile ? '10%' : '3%'} />
       </Wrapper>
     )
   } else {

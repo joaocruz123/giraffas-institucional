@@ -95,12 +95,22 @@ export const Imagens = styled.div`
     @media (max-width: 20rem) {
         display: none;
     }
+		
+		>a{
+			width: 50%;
+			padding: 1rem .5rem;
+		}
 `
 export const ImagensMobile = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
 		align-itens: center;
+
+		>a{
+			width: 50%;
+			padding: .5rem
+		}
 
     @media (max-width: 20rem) {
         display: none;

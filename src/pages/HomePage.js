@@ -10,7 +10,6 @@ import Stores from '../components/Stores/Stores';
 import SocialMedia from '../components/SocialMedia';
 import Footer from '../components/Footer';
 import { useDeviceLayout } from '../components/utilities/useCustomLayout';
-import { Button } from '@mui/material';
 
 const HomeContent = (props) => {
 	const { fetchFeedHighlights, fetchGroupsHighlights } = props;
@@ -20,10 +19,11 @@ const HomeContent = (props) => {
 	})
 
 	useEffect(() => {
-		//const typePlatform = isMobile ? 4 : 3
+		const typePlatform = isMobile ? 4 : 3
 		fetchFeedHighlights()
-		fetchGroupsHighlights(3)
+		fetchGroupsHighlights(typePlatform)
 	}, [
+		isMobile,
 		fetchFeedHighlights,
 		fetchGroupsHighlights
 	])

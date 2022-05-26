@@ -17,8 +17,7 @@ export const fetchStoresByAddress = ({ lat, long }) => async (dispatch, getState
 
         const response = mapFetchStoresByAddressResponse(apiResponse.data);
 
-				console.log(response)
-        dispatch(setSelectedStoreByAddress(response[0]))
+        //dispatch(setSelectedStoreByAddress(response[0]))
         result = {
             success: true,
             data: response
