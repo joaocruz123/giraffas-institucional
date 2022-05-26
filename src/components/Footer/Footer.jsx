@@ -21,7 +21,6 @@ import { connect } from 'react-redux'
 import { Grid, Link } from '@mui/material'
 import QRCode from './../../assets/qrcode.png'
 import Arrow from './../../assets/arrow.png'
-import Stores from './../../assets/stores.png'
 import AppStore from './../../assets/app_store.jpg'
 import GooglePlay from './../../assets/google_play.png'
 
@@ -72,7 +71,12 @@ function Footer() {
 							</SubTitleTwo>
 							<Imagens>
 								<img src={Arrow} alt="acesso ao app" width="100" style={{ margin: "0 20px" }} />
-								<img src={Stores} alt="acesso ao app" width="280" height="40" style={{ margin: "2rem 0 0 0" }} />
+								<a href='https://apps.apple.com/br/app/giraffas/id1453746331' target="_blank" rel="noreferrer">
+									<img src={AppStore} alt="acesso ao app" width="100%"/>
+								</a>
+								<a href='https://play.google.com/store/apps/details?id=br.com.voceqpad.giraffas' target="_blank" rel="noreferrer">
+									<img src={GooglePlay} alt="acesso ao app" width="100%"/>
+								</a>
 							</Imagens>
 						</SessionTwo>
 					</Grid>
@@ -82,10 +86,10 @@ function Footer() {
 								Baixe nosso App!
 							</TitleMobile>
 							<ImagensMobile>
-								<a href='https://apps.apple.com/br/app/giraffas/id1453746331' target="_blank">
+								<a href='https://apps.apple.com/br/app/giraffas/id1453746331' target="_blank" rel="noreferrer">
 									<img src={AppStore} alt="acesso ao app" width="100%"/>
 								</a>
-								<a href='https://play.google.com/store/apps/details?id=br.com.voceqpad.giraffas' target="_blank">
+								<a href='https://play.google.com/store/apps/details?id=br.com.voceqpad.giraffas' target="_blank" rel="noreferrer">
 									<img src={GooglePlay} alt="acesso ao app" width="100%"/>
 								</a>
 							</ImagensMobile>
