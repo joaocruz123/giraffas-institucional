@@ -60,3 +60,13 @@ export const CustomButton = styled.button`
         width: 80%;
     }
 `
+
+export const WrapperLoading = styled.div`
+  background: #fff;
+  width: 100%;
+    height: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
+`

@@ -90,7 +90,7 @@ function Footer() {
 									<img src={AppStore} alt="acesso ao app" width="100%"/>
 								</a>
 								<a href='https://play.google.com/store/apps/details?id=br.com.voceqpad.giraffas' target="_blank" rel="noreferrer">
-									<img src={GooglePlay} alt="acesso ao app" width="100%"/>
+									<img src={GooglePlay} alt="acesso ao app" width="107%"/>
 								</a>
 							</ImagensMobile>
 						</SessionMobile>

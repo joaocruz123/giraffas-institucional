@@ -5,6 +5,8 @@ export const SessionTitle = styled.h1`
 	width: 100%;
 	text-align: center;
 	color: ${props => props.theme.colors.primary};
+	text-transform: uppercase;
+	font-weight: 400;
 `
 
 export const CategorieName = styled.div`

@@ -30,7 +30,8 @@
         "secondWarning": "#F7941D",
         "textNinethColor": "#CECECE",
         "titleSession" : "#FFB831",
-        "footerBackground": "#ED8B00"
+        "footerBackground": "#ED8B00",
+				"backgroundMain": "#F5F5F5"
     },
     "storeName": "Nome do restaurante",
     "logoImage": "https://res.cloudinary.com/voceqpad/image/upload/v1583340712/logo.png",

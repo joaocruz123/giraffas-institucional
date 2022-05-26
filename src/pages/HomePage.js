@@ -35,7 +35,7 @@ const HomeContent = (props) => {
 			<Highlights />
 			<Feed />
 			<Cards />
-			<Stores />
+			<Stores isMobile={isMobile} />
 			<SocialMedia />
 			<Footer />
 		</React.Fragment>
