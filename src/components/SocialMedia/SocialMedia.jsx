@@ -40,27 +40,33 @@ function SocialMedia(props) {
 			</Grid>
 			<Grid container spacing={5} md={{ pl: 10, pr: 10 }} sx={{ pl: 3, pr: 3 }}>
 				<Grid item xs={12} md={4}>
-					<img src={Social1} width="100%" alt="media-rede-social" />
+					<a href='https://www.instagram.com/p/CdyHEw9j0zG/' target="_blank" rel="noreferrer">
+						<img src={Social1} width="100%" alt="media-rede-social" />
+					</a>
 				</Grid>
 				<Grid item xs={12} md={4}>
-					<img src={Social2} width="100%" alt="media-rede-social" />
+					<a href='https://www.instagram.com/p/Cdvd3j6jvoK/' target="_blank" rel="noreferrer">
+						<img src={Social2} width="100%" alt="media-rede-social" />
+					</a>
 				</Grid>
 				<Grid item xs={12} md={4}>
-					<img src={Social3} width="100%" alt="media-rede-social" />
+					<a href='https://www.instagram.com/p/CdeIKZUJ4tF/' target="_blank" rel="noreferrer">
+						<img src={Social3} width="100%" alt="media-rede-social" />
+					</a>
 				</Grid>
 			</Grid>
 			<Container disableGutters component="main" sx={{ pt: 4, pb: 4 }}>
 				<Stack direction="row" justifyContent="center" alignItems="center" spacing={-2}>
-					<a href='https://www.facebook.com/redegiraffas' target="_blank" rel="noopener">
+					<a href='https://www.facebook.com/redegiraffas' target="_blank" rel="noreferrer">
 						<Avatar alt="Facebook" src={facebook} sx={{ width: 80, height: 80 }} />
 					</a>
-					<a href='https://www.instagram.com/redegiraffas' target="_blank" rel="noopener">
+					<a href='https://www.instagram.com/redegiraffas' target="_blank" rel="noreferrer">
 						<Avatar alt="Instagram" src={instagram} sx={{ width: 80, height: 80 }} />
 					</a>
-					<a href='https://www.youtube.com/channel/UCKWWKktqqDirIHEhNdRfp3A' target="_blank" rel="noopener">
+					<a href='https://www.youtube.com/channel/UCKWWKktqqDirIHEhNdRfp3A' target="_blank" rel="noreferrer">
 						<Avatar alt="Youtube" src={youtube} sx={{ width: 80, height: 80 }} />
 					</a>
-					<a href='https://www.linkedin.com/company/giraffas/?originalSubdomain=br' target="_blank" rel="noopener">
+					<a href='https://www.linkedin.com/company/giraffas/?originalSubdomain=br' target="_blank" rel="noreferrer">
 						<Avatar alt="Linkedin" src={linkedin} sx={{ width: 80, height: 80 }} />
 					</a>
 				</Stack>

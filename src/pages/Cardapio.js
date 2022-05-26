@@ -8,6 +8,11 @@ import { STORE_ID } from '../config';
 import Menu from '../components/Menu';
 import { fetchGroupsHighlights } from '../redux/actions/ui';
 import { useDeviceLayout } from '../components/utilities/useCustomLayout';
+import styled from 'styled-components';
+
+const WrapperBackground = styled.div`
+	background-color: ${props => props.theme.colors.backgroundMain};
+`
 
 const Cardapio = (props) => {
 	const { fetchMenuStore, fetchGroupsHighlights } = props;
@@ -34,7 +39,9 @@ const Cardapio = (props) => {
 				<GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
 				<CssBaseline />
 				<Highlights />
-				<Menu />
+				<WrapperBackground>
+					<Menu />
+				</WrapperBackground>
 			</React.Fragment>
 		</>
 	);

@@ -81,6 +81,13 @@ export const SessionTree = styled.div`
     padding: .8rem 0 0 0;
     align-items: end;
 
+		@media(max-width: 750px){
+			justify-content: center;
+			align-items: center;
+			padding: 0 0 5rem 0;
+			text-align: center;
+		}
+
     >p {
         color: ${props => props.theme.colors.white};
         margin: 0;

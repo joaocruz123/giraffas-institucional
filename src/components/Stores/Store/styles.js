@@ -26,6 +26,11 @@ export const Wrapper = styled.div`
         border-collapse: collapse;
         width: 70%;
         font-size: 14px;
+
+				@media (max-width: 756px) {
+					width: 100%;
+					font-size: 10px;
+				}
     }
     
     td, th {
@@ -138,6 +143,10 @@ export const CustomButton = styled.button`
     font-weight: bold
     min-width: 64px;
     background-color: ${props => props.theme.colors.primary};
+
+		@media (max-width: 756px) {
+			padding: 4px 4px;
+		}
 `
 
 export const Hour = styled.div`
