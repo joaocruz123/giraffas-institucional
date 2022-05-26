@@ -3,6 +3,7 @@ import Link from '@mui/material/Link';
 import React from 'react'
 import Logo from './../../assets/logo_giraffas.png'
 import { Icon } from './../Common'
+import { FixedHeader } from './FixedHeader/FixedHeader';
 import {
 	Nav,
 	CustomButton,
@@ -95,6 +96,7 @@ export function Navbar() {
 					</CustomButton>
 				</Toolbar>
 			</AppBar>
+			<FixedHeader />
 			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1, display: { md: 'none', xs: 'block' } }} elevation={3}>
 				<Menu>
 					<ItemMenu href='/'>
