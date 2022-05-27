@@ -14,6 +14,9 @@ import {
 } from './styles'
 
 export function Navbar() {
+	const handleSite = () => {
+		window.open(`https://giraffasdelivery.voceqpad.com.br`, '_blank');
+	}
 	return (
 		<>
 			<AppBar
@@ -31,7 +34,7 @@ export function Navbar() {
 					<Nav>
 						<Link
 							variant="button"
-							href="#"
+							href="https://giraffasdelivery.voceqpad.com.br"
 							underline="none"
 							sx={{
 								my: 1, mx: 1.5, color: "#fff",
@@ -88,7 +91,7 @@ export function Navbar() {
 					</Nav>
 					<Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 					</Typography>
-					<CustomButton>
+					<CustomButton onClick={() => handleSite()}>
 						Faça Seu Pedido
 						<CustomIcon>
 							<Icon width={"25px"} height={"25px"} name={"appGiraffas"} stroke={"primary"} />
@@ -96,7 +99,7 @@ export function Navbar() {
 					</CustomButton>
 				</Toolbar>
 			</AppBar>
-			<FixedHeader />
+			<FixedHeader handleSite={handleSite}/>
 			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1, display: { md: 'none', xs: 'block' } }} elevation={3}>
 				<Menu>
 					<ItemMenu href='/'>

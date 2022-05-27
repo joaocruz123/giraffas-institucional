@@ -27,4 +27,8 @@ export const Wrapper = styled.div`
       return `display: none; opacity: 0;`
     }}
   }
+
+	@media (max-width: 756px){
+		display: none;
+	}
 `
