@@ -4,6 +4,7 @@ import React from 'react'
 import Logo from './../../assets/logo_giraffas.png'
 import { Icon } from './../Common'
 import { FixedHeader } from './FixedHeader/FixedHeader';
+import { FixedHeaderMobile } from './FixedHeaderMobile/FixedHeader';
 import {
 	Nav,
 	CustomButton,
@@ -100,6 +101,21 @@ export function Navbar() {
 				</Toolbar>
 			</AppBar>
 			<FixedHeader handleSite={handleSite}/>
+			<AppBar
+				position="fixed"
+				color="default"
+				elevation={0}
+				sx={{ zIndex: 2, backgroundColor: "#f5f5f529", display: { md: 'none', xs: 'block' } }}
+			>
+				<Toolbar sx={{ flexWrap: 'wrap', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+					<Link
+						href="/"
+					>
+						<img src={Logo} width="150" alt="Logo principal" />
+					</Link>
+				</Toolbar>
+			</AppBar>
+			<FixedHeaderMobile />
 			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1, display: { md: 'none', xs: 'block' } }} elevation={3}>
 				<Menu>
 					<ItemMenu href='/'>
