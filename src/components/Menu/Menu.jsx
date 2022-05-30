@@ -290,11 +290,6 @@ function Menu(props) {
 				open={openFilterCategories}
 				PaperProps={{
 					elevation: 0,
-					style: {
-						overflowY: 'unset',
-						maxWidth: '30rem',
-						minWidth: '30rem'
-					}
 				}}
 			>
 				<WrapperModalCategories>
