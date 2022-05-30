@@ -38,7 +38,7 @@ function SocialMedia(props) {
 					</Background>
 				</Grid>
 			</Grid>
-			<Grid container spacing={5} md={{ pl: 10, pr: 10 }} sx={{ pl: 3, pr: 3 }}>
+			<Grid container spacing={5} sx={{ pl: 3, pr: 3 }}>
 				<Grid item xs={12} md={4}>
 					<a href='https://www.instagram.com/p/CdyHEw9j0zG/' target="_blank" rel="noreferrer">
 						<img src={Social1} width="100%" alt="media-rede-social" />

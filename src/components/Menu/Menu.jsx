@@ -1,12 +1,35 @@
 import { Container, Dialog, Grid, Paper } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { styled } from '@mui/material/styles';
-import { CategorieName, Product, ProductName, WrapperModal, Img, H1, Description, WrapperImg, Header, Body, CustomButton, SessionTitle } from './styles';
+import {
+	CategorieName,
+	Product,
+	ProductName,
+	WrapperModal,
+	Img,
+	H1,
+	Description,
+	WrapperImg,
+	Header,
+	Body,
+	CustomButton,
+	SessionTitle,
+	Input,
+	Filter,
+	CustomIcon,
+	CustomButtonFilter,
+	WrapperLoading,
+	Chip,
+	WrapperModalCategories
+} from './styles';
+import { setFilterdMenu, setTextSearch } from './../../redux/actions/menu'
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Icon } from '../Common';
+import ReactLoading from "react-loading"
 
 const Item = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -52,14 +75,82 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 	backgroundColor: '#efefef'
 }));
 
-function Feed(props) {
-	const { categories } = props;
+function Menu(props) {
+	const {
+		isMobile,
+		categories,
+		setTextSearch,
+		textSearch,
+		setFilterdMenu,
+		filteredCategories,
+		availablesCategories
+	} = props;
 	const [open, setOpen] = useState(false);
+	const [openFilterCategories, setOpenFilterCategories] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [selectedCategories, setSelectedCategories] = useState(null);
+
+	useEffect(() => {
+
+		return (() => {
+			setTextSearch('')
+		})
+	}, [
+		setTextSearch,
+		selectedCategories
+	])
+
+	function handleSearchText(e) {
+		setTextSearch(e.target.value)
+
+		setTimeout(() => {
+			handleSearch()
+		}, 2000)
+	}
+
+	function handleSearch() {
+		setLoading(true);
+		if (textSearch && textSearch.length > 0) {
+			const categoriesResults = categories && categories.length && categories.reduce((acc, category) => {
+				const results = category.products.filter(filteredItem => {
+					return (filteredItem.name.toLowerCase().indexOf(textSearch.toLowerCase()) > -1 ||
+						filteredItem.description.toLowerCase().indexOf(textSearch.toLowerCase()) > -1) ? true : false
+				})
+
+				if (results.length) {
+					acc.push({
+						id: category.id,
+						name: category.name,
+						products: results
+					})
+				}
+
+				return acc
+			}, [])
+
+			if (categoriesResults.length) {
+				setFilterdMenu(categoriesResults)
+
+				setTimeout(() => {
+					setLoading(false)
+				}, 1000)
+
+				return
+			}
+		}
+
+		setFilterdMenu([])
+		setLoading(false)
+	}
 
 	const handleClose = () => {
 		setSelectedProduct(null)
 		setOpen(false)
+	}
+
+	const handleCloseCategiries = () => {
+		setOpenFilterCategories(false)
 	}
 
 	const handleDialogSelectProduct = (product) => {
@@ -67,34 +158,111 @@ function Feed(props) {
 		setOpen(true)
 	}
 
+	const handleSelectedCategories = (categorie) => {
+		if (selectedCategories && selectedCategories.length > 0) {
+			let index = selectedCategories.indexOf(categorie);
+
+			if (index === -1) {
+				let newCategories = [
+					...selectedCategories,
+					categorie
+				]
+				setSelectedCategories(newCategories)
+			} else {
+				const categories = selectedCategories
+				categories.splice(index, 1)
+				setSelectedCategories([...categories])
+			}
+		} else {
+			setSelectedCategories([categorie])
+		}
+	}
+
+	const handlefilterCategories = () => {
+		selectedCategories.forEach((categorie) => {
+			const categorieFilter = categories && categories.find((item) => item.name === categorie)
+
+			if (filteredCategories && filteredCategories.length > 0) {
+				if (categorieFilter) {
+					let newCategories = [
+						...filteredCategories,
+						categorieFilter
+					]
+					setFilterdMenu(newCategories)
+				}
+			} else {
+				setFilterdMenu([categorieFilter])
+			}
+		})
+	}
+
+
 	return (
 		<Container disableGutters component="main" sx={{ pt: 4, pb: 2, pl: 2, pr: 2 }}>
 			<SessionTitle>Nosso Cardápio</SessionTitle>
-			{categories && categories.map((categorie) => {
-				return (
-					<>
-						<CategorieName>
-							{categorie.name}
-						</CategorieName>
-						<Grid container rowSpacing={1} sx={{ pb: 4 }} columnSpacing={{ xs: 2, sm: 2, md: 4 }}>
-							{categorie && categorie?.products.map((product) => {
-								return (
-									<>
-										<Grid item xs={6} md={2}>
-											<Item onClick={() => handleDialogSelectProduct(product)}>
-												<Product>
-													<img src={product.image} alt="Imagem produto" />
-													<ProductName>{product.name}</ProductName>
-												</Product>
-											</Item>
-										</Grid>
-									</>
-								)
-							})}
-						</Grid>
-					</>
-				)
-			})}
+			<Filter>
+				<Input placeholder='Busque algum produto' value={textSearch} onChange={(e) => handleSearchText(e)} />
+				<CustomButtonFilter onClick={() => setOpenFilterCategories(true)}>
+					<CustomIcon>
+						<Icon width={"16px"} height={"16px"} name={"filter"} stroke={"white"} />
+					</CustomIcon>
+					Filtrar Categorias
+				</CustomButtonFilter>
+			</Filter>
+			{
+				!loading && filteredCategories && filteredCategories.length > 0 ?
+					filteredCategories && filteredCategories.map((categorie, index) => {
+						return (
+							<>
+								<CategorieName key={`${categorie.name}-${index}`}>
+									{categorie.name}
+								</CategorieName>
+								<Grid container rowSpacing={1} sx={{ pb: 4 }} columnSpacing={{ xs: 2, sm: 2, md: 4 }}>
+									{categorie && categorie?.products.map((product, index) => {
+										return (
+											<>
+												<Grid item xs={6} md={2} key={`product-${product.name}-${index}`}>
+													<Item onClick={() => handleDialogSelectProduct(product)}>
+														<Product>
+															<img src={product.image} alt="Imagem produto" />
+															<ProductName>{product.name}</ProductName>
+														</Product>
+													</Item>
+												</Grid>
+											</>
+										)
+									})}
+								</Grid>
+							</>
+						)
+					}) : !loading && categories ? categories.map((categorie, index) => {
+						return (
+							<>
+								<CategorieName key={`${categorie.name}-${index}`}>
+									{categorie.name}
+								</CategorieName>
+								<Grid container rowSpacing={1} sx={{ pb: 4 }} columnSpacing={{ xs: 2, sm: 2, md: 4 }}>
+									{categorie && categorie?.products.map((product, index) => {
+										return (
+											<>
+												<Grid item xs={6} md={2} key={`product-${product.name}-${index}`}>
+													<Item onClick={() => handleDialogSelectProduct(product)}>
+														<Product>
+															<img src={product.image} alt="Imagem produto" />
+															<ProductName>{product.name}</ProductName>
+														</Product>
+													</Item>
+												</Grid>
+											</>
+										)
+									})}
+								</Grid>
+							</>
+						)
+					}) : loading && <WrapperLoading>
+						<ReactLoading type="spin" color="#ED8B26" height={isMobile ? '10%' : '5%'} width={isMobile ? '10%' : '5%'} />
+					</WrapperLoading>
+			}
 
 			{selectedProduct &&
 				<Dialog
@@ -135,16 +303,44 @@ function Feed(props) {
 						</CustomButton>
 					</WrapperModal>
 				</Dialog>}
+
+			<Dialog
+				onClose={handleCloseCategiries}
+				open={openFilterCategories}
+				PaperProps={{
+					elevation: 0,
+				}}
+			>
+				<WrapperModalCategories>
+					{availablesCategories && availablesCategories.map((item, index) => {
+						const categorieSelected = selectedCategories && selectedCategories.length > 0 && selectedCategories.filter((acc) => acc === item)
+
+						return <Chip key={`categorie-${index}`} onClick={() => handleSelectedCategories(item)}
+							className={categorieSelected && categorieSelected[0] === item ? 'selected' : ''}
+						>
+							{item}
+						</Chip>
+					})}
+					<CustomButton onClick={() => handlefilterCategories()}>
+						Aplicar
+					</CustomButton>
+				</WrapperModalCategories>
+			</Dialog>
 		</Container>
 	)
 }
 
 const mapStateToProps = (state) => {
 	return {
-		categories: state.menu.categories || []
+		filteredCategories: state.menu.filteredCategories || null,
+		categories: state.menu.categories || [],
+		textSearch: state.menu.textSearch || null,
+		availablesCategories: state.menu.availablesCategories || null
 	};
 }
 
 export default connect(
 	mapStateToProps, {
-})(Feed);
+	setTextSearch,
+	setFilterdMenu
+})(Menu);
