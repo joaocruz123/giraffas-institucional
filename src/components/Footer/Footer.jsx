@@ -109,10 +109,10 @@ function Footer() {
 					<Grid item xs={6} sm={1}>
 						<Session>
 							{footer1.map((footer, index) => (
-								<ul>
+								<ul key={`footer1-${index}`}>
 									{footer.description.map((item) => (
 										<li key={item}>
-											<Link key={`footer1-${index}`} variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
+											<Link  variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
 												{item}
 											</Link>
 										</li>
@@ -124,10 +124,10 @@ function Footer() {
 					<Grid item xs={6} sm={2}>
 						<Session>
 							{footer2.map((footer, index) => (
-								<ul>
+								<ul key={`footer2-${index}`}>
 									{footer.description.map((item) => (
 										<li key={item}>
-											<Link key={`footer2-${index}`} variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
+											<Link  variant="button" href="#" underline="none" sx={{ fontWeight: 300, color: "#fff", '&:hover': { color: "#fff", textDecoration: "none" }, }}>
 												{item}
 											</Link>
 										</li>
