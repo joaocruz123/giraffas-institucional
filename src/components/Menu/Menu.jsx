@@ -160,23 +160,42 @@ function Menu(props) {
 
 	const handleSelectedCategories = (categorie) => {
 		if (selectedCategories && selectedCategories.length > 0) {
-			var index = selectedCategories.indexOf(categorie);
+			let index = selectedCategories.indexOf(categorie);
 
 			if (index === -1) {
 				let newCategories = [
 					...selectedCategories,
 					categorie
 				]
-				setSelectedCategories(newCategories)				
+				setSelectedCategories(newCategories)
 			} else {
 				const categories = selectedCategories
 				categories.splice(index, 1)
-				setSelectedCategories([...categories])				
+				setSelectedCategories([...categories])
 			}
 		} else {
 			setSelectedCategories([categorie])
 		}
 	}
+
+	const handlefilterCategories = () => {
+		selectedCategories.forEach((categorie) => {
+			const categorieFilter = categories && categories.find((item) => item.name === categorie)
+
+			if (filteredCategories && filteredCategories.length > 0) {
+				if (categorieFilter) {
+					let newCategories = [
+						...filteredCategories,
+						categorieFilter
+					]
+					setFilterdMenu(newCategories)
+				}
+			} else {
+				setFilterdMenu([categorieFilter])
+			}
+		})
+	}
+
 
 	return (
 		<Container disableGutters component="main" sx={{ pt: 4, pb: 2, pl: 2, pr: 2 }}>
@@ -302,7 +321,7 @@ function Menu(props) {
 							{item}
 						</Chip>
 					})}
-					<CustomButton>
+					<CustomButton onClick={() => handlefilterCategories()}>
 						Aplicar
 					</CustomButton>
 				</WrapperModalCategories>
