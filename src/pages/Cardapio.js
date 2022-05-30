@@ -40,7 +40,7 @@ const Cardapio = (props) => {
 				<CssBaseline />
 				<Highlights />
 				<WrapperBackground>
-					<Menu />
+					<Menu isMobile={isMobile} />
 				</WrapperBackground>
 			</React.Fragment>
 		</>

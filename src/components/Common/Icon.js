@@ -57,6 +57,7 @@ import {ReactComponent as MenuCardapio } from '../../assets/nav/menu_cardapio.sv
 import {ReactComponent as MenuCupons } from '../../assets/nav/menu_cupons.svg'
 import {ReactComponent as MenuLojas } from '../../assets/nav/menu_lojas.svg'
 import {ReactComponent as MenuPecaJa } from '../../assets/nav/menu_peca_ja.svg'
+import {ReactComponent as IconFilter } from '../../assets/icons/icon_filter.svg'
 
 const icons = {
     appGiraffas: AppGiraffas,
@@ -114,7 +115,8 @@ const icons = {
 		menuCardapio: MenuCardapio,
 		menuCupons: MenuCupons,
 		menuLojas: MenuLojas,
-		menuPeca: MenuPecaJa
+		menuPeca: MenuPecaJa,
+		filter: IconFilter
 }
 
 // To-Do: Fix stroke

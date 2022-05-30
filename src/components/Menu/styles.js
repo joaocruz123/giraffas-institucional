@@ -49,6 +49,20 @@ export const WrapperModal = styled.div`
         text-align: center;
     }
 `
+export const WrapperModalCategories = styled.div`
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+		justify-content: center;
+
+    >h1 {
+        color: ${props => props.theme.colors.primary};
+        font-size: 18px;
+        font-weight: 400;
+        text-align: center;
+    }
+`
 export const WrapperImg = styled.div`
 		min-height: 11rem;
 		max-height: 11rem;
@@ -101,4 +115,92 @@ export const CustomButton = styled.button`
     min-width: 64px;
 		width: 100%;
     background-color: ${props => props.theme.colors.primary};
+`
+export const Filter = styled.div`
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		@media(max-width: 756px){
+			flex-direction: column;
+			justify-content: center;
+		}
+`
+export const Input = styled.input`
+      border-radius: 16px;
+      padding: .6rem .8rem;
+      color: ${props => props.theme.colors.textPrimary};
+      background: #fff;
+      font-size: 14px;
+      border: none;
+      margin: .7rem 0;
+      width: 30rem;
+
+      :focus-visible {
+        border: none; 
+      }
+
+      ::placeholder {
+        color: ${props => props.theme.colors.textPrimary};
+      }
+
+			@media(max-width: 756px){
+				width: 100%;
+			}
+`
+export const CustomIcon = styled.div`
+    padding: 0 .6rem;
+    line-height: 1.75;
+`
+export const CustomButtonFilter = styled.button`
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    outline: 0;
+    border: 0;
+    margin: 0.7rem;
+		font-size: 0.875rem;
+    line-height: 2;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    height: 2.6rem;
+		background-color: ${props => props.theme.colors.primary};
+
+		@media(max-width: 756px){
+			width: 100%;
+			margin: 0;
+		}
+`
+export const WrapperLoading = styled.div`
+	background-color: ${props => props.theme.colors.backgroundMain};
+  width: 100%;
+	height: 15rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
+
+	@media(max-width: 756px){
+		height: 10rem;
+		margin-bottom: 2rem;
+	}
+`
+export const Chip = styled.div`
+    font-size: 14px;
+    font-weight: 200;
+    color: ${props => props.theme.colors.textPrimary};
+    border: 1px solid ${props => props.theme.colors.textPrimary};
+		background-color: #F4F4F4;
+    border-radius: 20px;
+    padding: 0 .6rem;
+    margin: .4rem .4rem 0 0;
+		cursor: pointer;
+
+		&.selected {
+			color: ${props => props.theme.colors.primary};
+			border: 1px solid ${props => props.theme.colors.primary};
+			font-weight: bold;
+		}
 `
