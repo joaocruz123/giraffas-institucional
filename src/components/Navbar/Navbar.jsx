@@ -102,7 +102,7 @@ export function Navbar({ ...propsAuth }) {
 						>
 							Lojas
 						</Link>
-						<Link
+						{/* <Link
 							variant="button"
 							href="#"
 							onClick={() => startDialogSignin()}
@@ -131,7 +131,7 @@ export function Navbar({ ...propsAuth }) {
 							}}
 						>
 							Signup
-						</Link>
+						</Link> */}
 					</Nav>
 					<Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 					</Typography>
