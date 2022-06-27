@@ -15,9 +15,9 @@ import {
 	CustomIconMenu
 } from './styles'
 
-export function Navbar({...propsAuth}) {
+export function Navbar({ ...propsAuth }) {
 	const {
-		visibleSignIn, 
+		visibleSignIn,
 		setVisibleSignIn,
 		startDialogSignin,
 		handleCloseDialogSignIn,
@@ -30,7 +30,7 @@ export function Navbar({...propsAuth}) {
 	const handleSite = () => {
 		window.open(`https://giraffasdelivery.voceqpad.com.br`, '_blank');
 	};
-	
+
 	return (
 		<>
 			<AppBar
@@ -143,7 +143,7 @@ export function Navbar({...propsAuth}) {
 					</CustomButton>
 				</Toolbar>
 			</AppBar>
-			<FixedHeader handleSite={handleSite}/>
+			<FixedHeader handleSite={handleSite} />
 			<Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 1, display: { md: 'none', xs: 'block' } }} elevation={3}>
 				<Menu>
 					<ItemMenu href='/'>
@@ -152,7 +152,7 @@ export function Navbar({...propsAuth}) {
 						</CustomIconMenu>
 						<p>Peça Já</p>
 					</ItemMenu>
-					<ItemMenu href='/'>
+					<ItemMenu href='/promocoes'>
 						<CustomIconMenu>
 							<Icon width={"24px"} height={"24px"} name={"menuCupons"} stroke={"textPrimary"} />
 						</CustomIconMenu>
@@ -179,46 +179,47 @@ export function Navbar({...propsAuth}) {
 				</Menu>
 			</Paper>
 			<Dialog
-          onClose={() => handleCloseDialogSignIn()}
-					className='login'
-          aria-labelledby='login-dialog'
-          open={visibleSignIn}
-          fullWidth={false}
-          fullScreen={false}
-          PaperProps={{
-            style: {
-              maxWidth: '21rem',
-              borderRadius: '.75rem'
-            }
-          }}
-        >
-          <SignIn
-            setVisibleSignIn={setVisibleSignIn}
-            close={() => { setVisibleSignIn(false) }}
-          />
-        </Dialog>
+				onClose={() => handleCloseDialogSignIn()}
+				className='login'
+				aria-labelledby='login-dialog'
+				open={visibleSignIn}
+				fullWidth={false}
+				fullScreen={false}
+				PaperProps={{
+					style: {
+						maxWidth: '21rem',
+						borderRadius: '.75rem'
+					}
+				}}
+			>
+				<SignIn
+					setVisibleSignUp={setVisibleSignUp}
+					setVisibleSignIn={setVisibleSignIn}
+					close={() => { setVisibleSignIn(false) }}
+				/>
+			</Dialog>
 
-				<Dialog
-          onClose={() => handleCloseDialogSignUp()}
-          aria-labelledby='signUp-dialog'
-          open={visibleSignUp}
-          maxWidth={'xs'}
-          fullWidth={false}
-          fullScreen={false}
-					PaperProps={{
-            style: {
-              maxWidth: '21rem',
-              borderRadius: '.75rem'
-            }
-          }}
-        >
-          <SignUp
-            setVisibleSignUp={setVisibleSignUp}
-            //initialData={signUpInitialData}
-            close={() => { setVisibleSignUp(false) }}
-          >
-          </SignUp>
-        </Dialog>
+			<Dialog
+				onClose={() => handleCloseDialogSignUp()}
+				aria-labelledby='signUp-dialog'
+				open={visibleSignUp}
+				maxWidth={'xs'}
+				fullWidth={false}
+				fullScreen={false}
+				PaperProps={{
+					style: {
+						maxWidth: '21rem',
+						borderRadius: '.75rem'
+					}
+				}}
+			>
+				<SignUp
+					setVisibleSignUp={setVisibleSignUp}
+					setVisibleSignIn={setVisibleSignIn}
+					close={() => { setVisibleSignUp(false) }}
+				>
+				</SignUp>
+			</Dialog>
 		</>
 
 	)

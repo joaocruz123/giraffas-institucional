@@ -19,7 +19,8 @@ const Promocoes = (props) => {
 		setRequiredAuth,
 		fetchProductsPromotionals,
 		fetchGroupsHighlights,
-		accessToken
+		accessToken,
+		requiredAuth
 	} = props;
 
 	const isMobile = useDeviceLayout({
@@ -33,13 +34,15 @@ const Promocoes = (props) => {
 		fetchGroupsHighlights
 	])
 	useEffect(() => {
-		// if (!accessToken) {
-		// 	setRequiredAuth(true)
-		// } else {
-		// 	fetchProductsPromotionals()
-		// }
-		fetchProductsPromotionals()
+		if (!accessToken && !requiredAuth) {
+			setRequiredAuth(true)
+		} else {
+			fetchProductsPromotionals()
+		}
 	}, [
+		accessToken,
+		requiredAuth,
+		setRequiredAuth,
 		fetchProductsPromotionals
 	])
 
@@ -59,7 +62,8 @@ const Promocoes = (props) => {
 
 const mapStateToProps = (state) => {
 	return {
-		accessToken: state.auth.auth && state.auth.auth.accessToken
+		accessToken: state.auth.auth && state.auth.auth.accessToken,
+		requiredAuth: state.auth && state.auth.requiredAuth
 	};
 }
 

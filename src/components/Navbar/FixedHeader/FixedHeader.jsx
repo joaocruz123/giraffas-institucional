@@ -53,7 +53,7 @@ export function FixedHeader(props) {
 					</Link>
 					<Link
 						variant="button"
-						href="#"
+						href="/promocoes"
 						underline="none"
 						sx={{
 							my: 1, mx: 1.5, color: "#fff",

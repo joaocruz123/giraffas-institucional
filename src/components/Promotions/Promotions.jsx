@@ -31,11 +31,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Icon } from '../Common';
 import ReactLoading from "react-loading"
 import GiraffasApp from '../../assets/giraffas_app.png'
+import GiraffasLabel from '../../assets/promocao_label.png'
 import ParaUm from '../../assets/para_um.png'
 import ParaDois from '../../assets/para_dois.png'
 import ParaMuitos from '../../assets/para_muitos.png'
 import { QRcode } from './QRcode';
 import moment from 'moment';
+import { useSnackbar } from 'react-simple-snackbar'
+import { SuccessOptions } from '../../utils/styleNotification';
 
 const Item = styled(Paper)(({ theme }) => ({
 	backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -90,6 +93,7 @@ function Promotions(props) {
 	const [loading, setLoading] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedPromotion, setSelectedPromotion] = useState(null);
+	const [openSuccessSnackbar] = useSnackbar(SuccessOptions({ modal: true }))
 
 	const handleClose = () => {
 		setSelectedProduct(null)
@@ -109,6 +113,10 @@ function Promotions(props) {
 
 	const handleDialogSelectPromotion = (product) => {
 		setSelectedPromotion(product)
+
+		setTimeout(() => {
+			openSuccessSnackbar('Cupom gerado com sucesso!')
+		}, 1000)
 		setOpen(false)
 		setOpenPromotion(true)
 	}
@@ -116,12 +124,15 @@ function Promotions(props) {
 	return (
 		<Container disableGutters component="main" sx={{ pt: 4, pb: 2, pl: 2, pr: 2 }}>
 			<ImageApp>
-					<img src={GiraffasApp} width="100%" alt="Imagem Giraffas App" />
+				<img src={GiraffasApp} width="100%" alt="Imagem Giraffas App" />
 			</ImageApp>
 			<SessionTitle>Nossas Promoções</SessionTitle>
+			<ImageApp>
+				<img src={GiraffasLabel} width="100%" alt="Imagem Giraffas App" />
+			</ImageApp>
 			{
 				!loading && promotions && promotions.length > 0 ?
-					<Grid container rowSpacing={1} sx={{ pb: 4 }} columnSpacing={{ xs: 1, sm: 1, md: 2 }}>
+					<Grid container rowSpacing={1} sx={{ pb: 4, pt: 4 }} columnSpacing={{ xs: 1, sm: 1, md: 2 }}>
 						{promotions && promotions.map((promotion, index) => {
 							return (
 								<>
@@ -231,9 +242,9 @@ function Promotions(props) {
 						</Code>
 						<Validate>Cupom válido até
 							<strong>{` ${moment(selectedPromotion.expirationDate).format("DD/MM/YYYY")}`}</strong></Validate>
-					<CustomButtonPromo>
-						Usar no Site
-					</CustomButtonPromo>
+						<CustomButtonPromo className='disabled'>
+							Usar no Site
+						</CustomButtonPromo>
 					</WrapperModal>
 				</Dialog>}
 		</Container>
@@ -242,10 +253,7 @@ function Promotions(props) {
 
 const mapStateToProps = (state) => {
 	return {
-		filteredCategories: state.menu.filteredCategories || null,
 		promotions: state.promotions.promotions || [],
-		textSearch: state.menu.textSearch || null,
-		availablesCategories: state.menu.availablesCategories || null
 	};
 }
 

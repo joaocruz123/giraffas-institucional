@@ -137,6 +137,11 @@ export const CustomButtonPromo = styled.button`
     min-width: 64px;
 		width: 100%;
     background-color: ${props => props.theme.colors.primary};
+
+		&.disabled{
+			opacity: .4;
+			cursor: auto;
+		}
 `
 export const Details = styled.div`
 		display: flex;
