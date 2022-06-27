@@ -1,6 +1,8 @@
-import { AppBar, Paper, Toolbar, Typography } from '@mui/material'
+import { AppBar, Dialog, Paper, Toolbar, Typography } from '@mui/material'
 import Link from '@mui/material/Link';
-import React from 'react'
+import React, { useState } from 'react'
+import SignIn from '../SignIn/SignIn';
+import SignUp from '../SignUp/SignUp';
 import Logo from './../../assets/logo_giraffas.png'
 import { Icon } from './../Common'
 import { FixedHeader } from './FixedHeader/FixedHeader';
@@ -13,10 +15,22 @@ import {
 	CustomIconMenu
 } from './styles'
 
-export function Navbar() {
+export function Navbar({...propsAuth}) {
+	const {
+		visibleSignIn, 
+		setVisibleSignIn,
+		startDialogSignin,
+		handleCloseDialogSignIn,
+		visibleSignUp,
+		setVisibleSignUp,
+		startDialogSignup,
+		handleCloseDialogSignUp
+	} = propsAuth;
+
 	const handleSite = () => {
 		window.open(`https://giraffasdelivery.voceqpad.com.br`, '_blank');
-	}
+	};
+	
 	return (
 		<>
 			<AppBar
@@ -48,7 +62,7 @@ export function Navbar() {
 						</Link>
 						<Link
 							variant="button"
-							href="#"
+							href="/promocoes"
 							underline="none"
 							sx={{
 								my: 1, mx: 1.5, color: "#fff",
@@ -87,6 +101,36 @@ export function Navbar() {
 							}}
 						>
 							Lojas
+						</Link>
+						<Link
+							variant="button"
+							href="#"
+							onClick={() => startDialogSignin()}
+							underline="none"
+							sx={{
+								my: 1, mx: 1.5, color: "#fff",
+								'&:hover': {
+									color: "#fff",
+									textDecoration: "none"
+								},
+							}}
+						>
+							Login
+						</Link>
+						<Link
+							variant="button"
+							href="#"
+							onClick={() => startDialogSignup()}
+							underline="none"
+							sx={{
+								my: 1, mx: 1.5, color: "#fff",
+								'&:hover': {
+									color: "#fff",
+									textDecoration: "none"
+								},
+							}}
+						>
+							Signup
 						</Link>
 					</Nav>
 					<Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
@@ -134,6 +178,47 @@ export function Navbar() {
 					</ItemMenu>
 				</Menu>
 			</Paper>
+			<Dialog
+          onClose={() => handleCloseDialogSignIn()}
+					className='login'
+          aria-labelledby='login-dialog'
+          open={visibleSignIn}
+          fullWidth={false}
+          fullScreen={false}
+          PaperProps={{
+            style: {
+              maxWidth: '21rem',
+              borderRadius: '.75rem'
+            }
+          }}
+        >
+          <SignIn
+            setVisibleSignIn={setVisibleSignIn}
+            close={() => { setVisibleSignIn(false) }}
+          />
+        </Dialog>
+
+				<Dialog
+          onClose={() => handleCloseDialogSignUp()}
+          aria-labelledby='signUp-dialog'
+          open={visibleSignUp}
+          maxWidth={'xs'}
+          fullWidth={false}
+          fullScreen={false}
+					PaperProps={{
+            style: {
+              maxWidth: '21rem',
+              borderRadius: '.75rem'
+            }
+          }}
+        >
+          <SignUp
+            setVisibleSignUp={setVisibleSignUp}
+            //initialData={signUpInitialData}
+            close={() => { setVisibleSignUp(false) }}
+          >
+          </SignUp>
+        </Dialog>
 		</>
 
 	)

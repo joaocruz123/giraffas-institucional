@@ -2,12 +2,14 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Cardapio from './pages/Cardapio'
 import HomePage from './pages/HomePage'
+import Promocoes from './pages/Promocoes';
 
-const Routes = () => {
+const Routes = (props) => {
   return <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/cardapio" component={Cardapio} />
+      <Route exact path="/" component={HomePage} {...props} />
+      <Route path="/cardapio" component={Cardapio} {...props} />
+			<Route path="/promocoes" component={Promocoes} {...props} />
     </Switch>
   </BrowserRouter>
 }

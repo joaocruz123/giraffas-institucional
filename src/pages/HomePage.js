@@ -10,9 +10,10 @@ import Stores from '../components/Stores/Stores';
 import SocialMedia from '../components/SocialMedia';
 import Footer from '../components/Footer';
 import { useDeviceLayout } from '../components/utilities/useCustomLayout';
+import { setRequiredAuth } from '../redux/actions/auth';
 
 const HomeContent = (props) => {
-	const { fetchFeedHighlights, fetchGroupsHighlights } = props;
+	const { fetchFeedHighlights, fetchGroupsHighlights, setRequiredAuth } = props;
 
 	const isMobile = useDeviceLayout({
 		isMobile: true
@@ -22,10 +23,12 @@ const HomeContent = (props) => {
 		const typePlatform = isMobile ? 4 : 3
 		fetchFeedHighlights()
 		fetchGroupsHighlights(typePlatform)
+		setRequiredAuth(false)
 	}, [
 		isMobile,
 		fetchFeedHighlights,
-		fetchGroupsHighlights
+		fetchGroupsHighlights,
+		setRequiredAuth
 	])
 
 	return (
@@ -51,5 +54,6 @@ const mapStateToProps = (state) => {
 export default connect(
 	mapStateToProps, {
 	fetchFeedHighlights,
-	fetchGroupsHighlights
+	fetchGroupsHighlights,
+	setRequiredAuth
 })(HomeContent);

@@ -31,7 +31,12 @@
         "textNinethColor": "#CECECE",
         "titleSession" : "#FFB831",
         "footerBackground": "#ED8B00",
-				"backgroundMain": "#F5F5F5"
+				"backgroundMain": "#F5F5F5",
+				"colorPromotional" : "#772583",
+				"orange1" : "#FFB81C",
+				"orange2" : "#ED8B00",
+				"orange3" : "#FF6A20",
+				"textGrey" : "#626262"
     },
     "storeName": "Nome do restaurante",
     "logoImage": "https://res.cloudinary.com/voceqpad/image/upload/v1583340712/logo.png",
