@@ -32,7 +32,7 @@ function SocialMedia(props) {
 						<SubTitle>E não perca nenhuma novidade!</SubTitle>
 					</Session>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item xs={12} md={3} sx={{ display: { md: 'block', xs: 'none' } }}>
 					<Background className='right'>
 						<img src={Grade2} width="300" alt="background-rede-social" />
 					</Background>

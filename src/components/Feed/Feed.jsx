@@ -13,7 +13,7 @@ function Feed(props) {
 			<Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
 				<Grid container sx={{ justifyContent: "center", alignItems: "center"}} spacing={1}>
 					{groups && groups.map((acc, index) => {
-						return <Grid item xs={4} md={1} key={`feed-${acc.name}-${index}`}><Div>
+						return <Grid item xs={3} md={1} key={`feed-${acc.name}-${index}`}><Div>
 							<Cirlular>
 								<Avatar alt="Remy Sharp" src={acc.imgUrl} sx={{ width: 62, height: 62 }} />
 							</Cirlular>

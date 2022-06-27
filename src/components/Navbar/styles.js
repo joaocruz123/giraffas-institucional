@@ -5,7 +5,7 @@ export const Nav = styled.nav`
 
     >a {
         margin-right: 1.5rem;
-        font-weight: 100;
+        font-weight: 500;
     }
 `
 
