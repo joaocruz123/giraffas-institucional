@@ -202,12 +202,12 @@ function Menu(props) {
 			<SessionTitle>Nosso Cardápio</SessionTitle>
 			<Filter>
 				<Input placeholder='Busque algum produto' value={textSearch} onChange={(e) => handleSearchText(e)} />
-				<CustomButtonFilter onClick={() => setOpenFilterCategories(true)}>
+				{/* <CustomButtonFilter onClick={() => setOpenFilterCategories(true)}>
 					<CustomIcon>
 						<Icon width={"16px"} height={"16px"} name={"filter"} stroke={"white"} />
 					</CustomIcon>
 					Filtrar Categorias
-				</CustomButtonFilter>
+				</CustomButtonFilter> */}
 			</Filter>
 			{
 				!loading && filteredCategories && filteredCategories.length > 0 ?

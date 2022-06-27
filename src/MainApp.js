@@ -35,6 +35,8 @@ const MainApp = (props) => {
 	useEffect(() => {
 		if (!accessToken && requiredAuth) {
 			setVisibleSignIn(true);
+		}else{
+			setVisibleSignIn(false);
 		}
 
 		setTimeout(() => {
