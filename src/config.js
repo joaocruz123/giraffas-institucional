@@ -8,6 +8,6 @@ export const API_URL = process.env.REACT_APP_API_URL ||
 export const APP_ID = process.env.REACT_APP_ID || 20
 export const STORE_ID = process.env.REACT_APP_STORE_ID || 1612
 export const STORES_LIMIT = process.env.REACT_APP_STORES_LIMIT || 10
-export const PLATFORM = process.env.REACT_APP_PLATFORM || 3
+export const PLATFORM = process.env.REACT_APP_PLATFORM || 2
 export const PLATFORM_ID = process.env.REACT_APP_PLATFORM_ID || 5
 export const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY || "AIzaSyBUKUg5XlcJFnqSQ1R8phCnbRe7owwMVYI"

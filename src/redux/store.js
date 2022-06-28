@@ -25,7 +25,7 @@ const api = axios.create({
       "Plataforma": PLATFORM,
       "AplicativoId": APP_ID,
 			"DeviceToken": getDeviceToken(),
-			"Agent": "Institucional"
+			//"Agent": "Institucional"
     }
 });
 
