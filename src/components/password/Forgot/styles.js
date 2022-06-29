@@ -68,9 +68,16 @@ export const Form = styled.form`
 export const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 700;
-  text-align: start;
+  text-align: center;
   flex: 1 0 100%;
   margin: 0 0 1.5rem 0;
+`
+export const Description = styled.div`
+  font-size: 14px;
+  text-align: center;
+  margin: 1rem 3rem;
+	width: 100%;
+	color: #b6b4b4;
 `
 
 export const FormField = styled.div`
@@ -80,16 +87,19 @@ export const FormField = styled.div`
 export const ActionsWrapper = styled.div`
   display: flex;
   align-items: center;
+	flex-direction: column;
   justify-content: center;
   flex: 1 0 100%;
   margin: 2rem 0 0 0;
 
   button {
-    flex: 0 0 calc(50% - .5rem);
     height: 3rem;
-    background-color: ${ props => (props.theme && props.theme.main && props.theme.main.general 
-        && props.theme.main.general.primaryColor) || '#000' };  
+		width: 100%
+    background-color: ${props => props.theme.colors.primary};
     cursor: pointer;
+		color: #fff;
+		font-weight: bold;
+		margin: 0 0 .8rem 0;
 
     &:hover {
       opacity: .9;
@@ -100,13 +110,11 @@ export const ActionsWrapper = styled.div`
       cursor: default;
     }
 
-    &:first-of-type {
-      margin: 0 1rem 0 0;
+    &.back {
+      margin: 0 0 1rem 0;
       background-color: transparent;
-      border: 2px solid ${ props => (props.theme && props.theme.main && props.theme.main.general 
-          && props.theme.main.general.primaryColor) || '#000' };
-      color: ${ props => (props.theme && props.theme.main && props.theme.main.general 
-          && props.theme.main.general.primaryColor) || '#000' };  
+      border: 2px solid ${props => props.theme.colors.primary};
+      color: ${props => props.theme.colors.primary};  
 
       &:hover {
         background-color: #f7f7f7;

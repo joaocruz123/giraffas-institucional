@@ -1,12 +1,13 @@
-import { AppBar, Dialog, Paper, Toolbar, Typography } from '@mui/material'
-import Link from '@mui/material/Link';
-import React, { useState } from 'react'
+import React from 'react'
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import Logo from './../../assets/logo_giraffas.png'
 import { Icon } from './../Common'
 import { FixedHeader } from './FixedHeader/FixedHeader';
 import { FixedHeaderMobile } from './FixedHeaderMobile/FixedHeader';
+import { AppBar, Dialog, Paper, Slide, Toolbar, Typography } from '@mui/material'
+import ForgotPassword from '../password/Forgot/Forgot'
+import Link from '@mui/material/Link';
 import {
 	Nav,
 	CustomButton,
@@ -16,21 +17,30 @@ import {
 	CustomIconMenu
 } from './styles'
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />
+})
+
 export function Navbar({ ...propsAuth }) {
 	const {
 		visibleSignIn,
 		setVisibleSignIn,
-		startDialogSignin,
+		visibleForgotPassword,
+		setVisibleForgotPassword,
 		handleCloseDialogSignIn,
 		visibleSignUp,
 		setVisibleSignUp,
-		startDialogSignup,
 		handleCloseDialogSignUp
 	} = propsAuth;
 
 	const handleSite = () => {
 		window.open(`https://giraffasdelivery.voceqpad.com.br`, '_blank');
 	};
+
+	function handleCloseDialogForgotPassword() {
+    setVisibleForgotPassword(false)
+    setVisibleSignIn(true)
+  }
 
 	return (
 		<>
@@ -211,6 +221,8 @@ export function Navbar({ ...propsAuth }) {
 				<SignIn
 					setVisibleSignUp={setVisibleSignUp}
 					setVisibleSignIn={setVisibleSignIn}
+					setVisibleForgotPassword={setVisibleForgotPassword}
+					handleCloseDialogForgotPassword={handleCloseDialogForgotPassword}
 					close={() => { setVisibleSignIn(false) }}
 				/>
 			</Dialog>
@@ -236,6 +248,24 @@ export function Navbar({ ...propsAuth }) {
 				>
 				</SignUp>
 			</Dialog>
+
+			<Dialog
+          onClose={() => handleCloseDialogForgotPassword()}
+          aria-labelledby='forgot-password-dialog'
+          open={visibleForgotPassword}
+          maxWidth={'xs'}
+          fullWidth={false}
+          fullScreen={false}
+          classes={{
+            style: {
+							maxWidth: '22rem',
+							borderRadius: '.75rem'
+						}
+          }}
+          TransitionComponent={Transition}
+        >
+          <ForgotPassword backStep={() => handleCloseDialogForgotPassword()} />
+        </Dialog>
 		</>
 
 	)
