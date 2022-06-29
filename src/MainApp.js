@@ -27,6 +27,7 @@ const MainApp = (props) => {
 	const [loading, setLoading] = useState(true)
 	const [visibleSignIn, setVisibleSignIn] = useState(false);
 	const [visibleSignUp, setVisibleSignUp] = useState(false);
+	const [visibleForgotPassword, setVisibleForgotPassword] = useState(false);
 
 	const isMobile = useDeviceLayout({
 		isMobile: true
@@ -79,7 +80,9 @@ const MainApp = (props) => {
 		setVisibleSignUp,
 		handleCloseDialogSignIn,
 		startDialogSignup,
-		handleCloseDialogSignUp
+		handleCloseDialogSignUp,
+		visibleForgotPassword,
+		setVisibleForgotPassword
 	}
 
 	if (loading) {

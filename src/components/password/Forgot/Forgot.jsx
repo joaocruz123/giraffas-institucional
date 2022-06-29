@@ -2,49 +2,23 @@ import React from 'react'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { makeStyles } from '@material-ui/core'
 
-import { pipe, GetContent } from '../../../domain/helpers'
+import { InputRounded, Button, CustomLoading } from '../../Common'
 
-import { ReactComponent as IconClose } from '../../assets/icons/icon_close.svg'
-import { ReactComponent as IconCheck } from '../../assets/icons/icon_check.svg'
-
-import { InputRounded, Button } from '../../components'
-
-import {
-	setNotification,
-	postSendNewPassword
-} from '../../../redux/actions/main'
+import { postSendNewPassword } from '../../../redux/actions/auth'
 
 import {
 	Wrapper,
-	ErrorMessage,
-	SuccessMessage,
 	Form,
 	Title,
 	ActionsWrapper,
-	FormField
+	FormField,
+	Description
 } from './styles'
+import { useSnackbar } from 'react-simple-snackbar'
+import { ErrorOptions, SuccessOptions } from '../../../utils/styleNotification'
 
-export const useForgotPasswordDialogStyles = makeStyles((theme) => ({
-	scrollPaper: {
-		[theme.breakpoints.down(460)]: {
-			alignItems: 'flex-end',
-		}
-	},
-	paper: {
-		borderRadius: '.75rem',
-		[theme.breakpoints.down(460)]: {
-			borderRadius: '.75rem .75rem 0 0',
-			margin: 0,
-			width: '100%',
-			maxWidth: 'none',
-		}
-	}
-}))
-const Context = React.createContext({})
-
-function ForgotPasswordPage(props) {
+function ForgotPassword(props) {
 	const {
 		postSendNewPassword,
 		backStep
@@ -52,24 +26,24 @@ function ForgotPasswordPage(props) {
 
 	const [email, setEmail] = useState(null)
 	const [pending, setPending] = useState(false)
-	const [success, setSuccess] = useState(false)
 	const [isValid, setIsValid] = useState(false)
-	const [errorMessage, setErrorMessage] = useState(null)
+	const [openSuccessSnackbar] = useSnackbar(SuccessOptions({ modal: true }))
+	const [openErrorSnackbar] = useSnackbar(ErrorOptions({ modal: true }))
 
 	const handleSubmit = async () => {
 		setPending(true)
 		const result = await postSendNewPassword(email)
 
 		if (result && result.success) {
-			setErrorMessage(null)
-			setSuccess(true)
+			openSuccessSnackbar('Nova senha enviada para seu e-mail!')
+			backStep()
 		} else {
-			setErrorMessage(result.message)
+			openErrorSnackbar(result.message)
 		}
 
 		setPending(false)
 	}
-	
+
 	const handleEmailChange = (value) => {
 		setEmail(value)
 		validateEmail(value)
@@ -82,23 +56,11 @@ function ForgotPasswordPage(props) {
 
 	return (
 		<Wrapper>
-			{ errorMessage && 
-				<ErrorMessage>
-					<span>{ errorMessage }</span>
-					<IconClose />
-				</ErrorMessage>
-			}
-
-			{ success && 
-				<SuccessMessage>
-					<span>Nova senha enviada para seu e-mail!</span>
-					<IconCheck />
-				</SuccessMessage>
-			}
 			<Form onSubmit={(event) => {
 				event.preventDefault()
 			}}>
 				<Title>Esqueci minha senha</Title>
+				<Description>Uma nova senha será enviada no e-mail cadastrado.</Description>
 				<FormField>
 					<InputRounded
 						value={email}
@@ -110,16 +72,24 @@ function ForgotPasswordPage(props) {
 				</FormField>
 				<ActionsWrapper>
 					<Button
-						onClick={() => { backStep() }}
-						type='button'
-					>
-						Voltar
-					</Button>
-					<Button 
-						onClick={() => { handleSubmit() }}
+						onClick={() => handleSubmit()}
 						disabled={pending || !isValid}
 					>
-						Enviar nova senha	
+						{pending ?
+							<CustomLoading
+								color={'#fff'}
+								type={'spin'}
+								id='default-loading'
+								height={30}
+								width={30} /> :
+							'Enviar nova senha'}
+					</Button>
+					<Button
+						onClick={() => { backStep() }}
+						type='button'
+						className='back'
+					>
+						Voltar
 					</Button>
 				</ActionsWrapper>
 			</Form>
@@ -127,19 +97,19 @@ function ForgotPasswordPage(props) {
 	)
 }
 
-ForgotPasswordPage.propTypes = {
+ForgotPassword.propTypes = {
 	postSendNewPassword: PropTypes.func,
 	backStep: PropTypes.number
 }
 
-const mapStateToProps = () => { return {} }
 
-const GetConnection = connect(mapStateToProps, {
-	postSendNewPassword,
-	setNotification
-})
+const mapStateToProps = (state) => {
+	return {
+		signUp: (state.auth.signUp) || {},
+	}
+}
 
-export const ForgotPassword = React.memo(pipe(
-	GetConnection,
-	GetContent({ context: Context, id: 'forgotPassword' })
-)(ForgotPasswordPage))
+export default connect(
+	mapStateToProps, {
+	postSendNewPassword
+})(ForgotPassword);

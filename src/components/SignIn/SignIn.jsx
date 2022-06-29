@@ -24,7 +24,6 @@ import {
 	ForgotPasswordLink,
 } from './styles'
 
-import { Slide } from '@mui/material'
 import { useSnackbar } from 'react-simple-snackbar'
 import { ErrorOptions, SuccessOptions } from '../../utils/styleNotification'
 
@@ -79,10 +78,6 @@ function SignIn(props) {
 		}
 	}
 
-	const handleCloseDialogForgotPassword = () => {
-		setLoginForgotPassword(false)
-	}
-
 	return <Wrapper>
 		<StoreLogoImage src={storeLogo} />
 		<Form onSubmit={(event) => {
@@ -106,7 +101,7 @@ function SignIn(props) {
 					placeholder="Senha" />
 			</FormField>
 			<ForgotPasswordLink onClick={() => {
-				setVisibleForgotPassword ? setVisibleForgotPassword() : setLoginForgotPassword(true)
+				setVisibleForgotPassword(true)
 			}}>Esqueci minha senha</ForgotPasswordLink>
 			<SubmitButton onClick={() => {
 				SubmitLogin()

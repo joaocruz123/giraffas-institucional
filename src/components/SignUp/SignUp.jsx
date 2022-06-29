@@ -3,12 +3,9 @@ import React, {
 	useState
 } from 'react'
 import { connect } from 'react-redux'
-import { Helmet } from 'react-helmet'
 
-import history from '../../history'
-import { ReactComponent as IconArrowLeft } from '../../assets/icons/icon_arrow_left.svg'
-import { ReactComponent as IconClose } from '../../assets/icons/icon_close.svg'
-import { InputRounded } from '../Common'
+import { CustomLoading, InputRounded } from '../Common'
+import { signUpUser, setSignUp, getSignUp } from './../../redux/actions/auth'
 
 import {
 	Wrapper,
@@ -24,46 +21,27 @@ import {
 	FormFieldRepeatPassword,
 	RegisterButton,
 	TermsOfServiceLabel,
-	PhoneHeader,
-	ErrorMessage
+	FormFieldPhone
 } from './styles'
+import { ErrorOptions, SuccessOptions } from '../../utils/styleNotification'
+import { useSnackbar } from 'react-simple-snackbar'
 
 function SignUp(props) {
 	const {
 		setSignUp,
-		setAccessToken,
-		postSignUp,
-		postSignUpFacebook,
-		postSignUpGoogle,
+		signUpUser,
 		signUp,
-		setCard,
-		setUserCard,
-		setLogin,
-		getSignUp,
-		setNotification,
-		postCode,
-		setUserHistory,
-		postPhone,
-		close,
-		userHistory,
-		URLParameters
+		setVisibleSignUp,
+		getSignUp
 	} = props
-
-	/* const { name, lastName, email } = signUp */
-
-	// const {
-	//   back
-	// } = userHistory
 
 	const [loading, setLoading] = useState(false)
 	const [loaded, setLoaded] = useState(false)
 	const [ready, setReady] = useState(false)
 	const [phoneReady, setPhoneReady] = useState(false)
-	const [phoneStep, setPhoneStep] = useState(0)
-	const [phoneHeaderTitle, setPhoneHeaderTitle] = useState('Cadastrar celular')
-	const [time, setTime] = useState(30)
-	const [signUpError, setSignUpError] = useState(null)
 	const [values, setValues] = useState({ ...signUp })
+	const [openSuccessSnackbar] = useSnackbar(SuccessOptions({ modal: true }))
+	const [openErrorSnackbar] = useSnackbar(ErrorOptions({ modal: true }))
 
 	const {
 		name,
@@ -73,13 +51,35 @@ function SignUp(props) {
 		CPF,
 		password,
 		password2,
-		phone,
-		code,
-		ddi,
-		country
+		phone
 	} = values
 
-	let timeout = null
+	useEffect(() => {
+    document.querySelector('#root').style.background = '#fff'
+
+    if (!loaded && !loading) {
+      setLoading(false)
+      setLoaded(true)
+      setReady(true)
+
+      const signUp = getSignUp()
+
+      setSignUp({
+        ...signUp,
+        resend: false
+      })
+    }
+
+    return () => {}
+  }, [
+    loaded,
+    loading,
+    ready,
+    phoneReady,
+    setSignUp,
+    signUp,
+    getSignUp
+  ])
 
 	function handleInput(event) {
 		const {
@@ -177,15 +177,6 @@ function SignUp(props) {
 		}
 	}
 
-	function handleStep(args) {
-		const titles = {
-			0: 'Cadastrar celular',
-			1: 'Código de confirmação'
-		}
-		setPhoneHeaderTitle(titles[args])
-		setPhoneStep(args)
-	}
-
 	async function handleSubmit() {
 		setLoading(true)
 
@@ -195,205 +186,35 @@ function SignUp(props) {
 			success: false
 		})
 
-		if (signUp.facebookUserId) {
-			await postSignUpFacebook()
-		} else if (signUp.googleUserId) {
-			await postSignUpGoogle()
-		} else {
-			await postSignUp()
-		}
+		const result = await postSignUp()
 
-		const newSignUp = getSignUp()
-
-		if (newSignUp && newSignUp.success) {
-			const token = newSignUp.token && newSignUp.token.accessToken
-
-			setAccessToken(token)
-			setPhoneReady(true)
+		if (result && result.success) {
+			const user = result.user && result.user.name
+			openSuccessSnackbar(`Cadastro realizado com sucesso, ${user}`)
+			setSignUp({})
 			setLoading(false)
-			setNotification(null)
-			setSignUpError(null)
-
+			setVisibleSignUp(false)
 			return
 		}
 
-		const notificationMessage = 'Não foi possível fazer o cadastro!'
-		setNotification({
-			type: 'warning',
-			message: notificationMessage
-		})
-		setSignUpError(notificationMessage)
-
+		openErrorSnackbar(result.message ?? 'Não foi possível fazer o cadastro!')
 		setLoading(false)
 	}
 
-	function postTime(args) {
-		setTime(args)
-	}
-
-	function handleTime(startTime, time = 0, data = {}) {
-		const signUp = getSignUp()
-
-		if (!time && data) {
-			setSignUp({
-				...signUp,
-				...data
-			})
-		}
-
-		if (data.clear) {
-			postTime(30, 30)
-			clearTimeout(timeout)
-
-			return
-		}
-
-		timeout = setTimeout(() => {
-			postTime(Number(time - 1))
-
-			if (time - 1 > 0) {
-				handleTime(startTime, time - 1)
-			}
-		}, 1000)
-	}
-
-	async function handlePhoneSubmit() {
-		setSignUp({
+	async function postSignUp() {
+		const form = {
 			...signUp,
-			...values
-		})
+			...values,
+		}
+		const response = await signUpUser(form)
 
-		await postPhone([() => {
-			const notificationMessage = 'Não foi possível enviar o código para seu telefone celular.'
-
-			setNotification({
-				type: 'warning',
-				message: notificationMessage
-			})
-
-			setSignUpError(notificationMessage)
-			handleStep(0)
-		}, () => {
-			//const newConfirmationType = messageErrors + 1 >= 4 ? 'phone' : 'sms'
-
-			// handleTime(30, 30, {
-			// 	messageErrors: messageErrors + 1,
-			// 	confirmationType: newConfirmationType,
-			// 	resend: true,
-			// 	clear: false
-			// })
-			setNotification(null)
-			setSignUpError(null)
-			handleStep(1)
-		}])
+		return response
 	}
-
-	async function handleCodeSubmit() {
-		setSignUp({
-			...signUp,
-			...values
-		})
-
-		await postCode([{
-			name: 'address',
-			type: 'error',
-			callback: (a) => {
-				// setUserHistory({
-				//   next: 'sign-up',
-				//   back: 'sign-up'
-				// })
-
-				const notificationMessage = 'Não foi possível cadastrar seu endereço. Tente novamente.'
-				setNotification({
-					type: 'warning',
-					message: notificationMessage
-				})
-
-				history.push(`/new-address${URLParameters}`)
-			}
-		}, {
-			name: 'address',
-			type: 'success',
-			callback: (b) => {
-
-				console.warn('Address created')
-			}
-		}, {
-			name: 'code',
-			type: 'error',
-			callback: () => {
-				const notificationMessage = 'Não foi possível validar o código para seu telefone celular.'
-				setNotification({
-					type: 'warning',
-					message: notificationMessage
-				})
-				setSignUpError(notificationMessage)
-
-				setPhoneReady(true)
-			}
-		}, {
-			name: 'code',
-			type: 'success',
-			callback: () => {
-				const signUp = getSignUp()
-
-				const token = signUp.token && signUp.token.accessToken
-
-				const {
-					email,
-					password
-				} = signUp
-
-				setCard(null)
-				setUserCard(null)
-				setAccessToken(token)
-				setLogin({
-					...signUp,
-					email,
-					password,
-					success: true,
-					subscriptionStatus: 1
-				})
-				setPhoneReady(false)
-				setNotification(null)
-				setSignUpError(null)
-				setSignUp(null)
-
-				if (close && typeof close === 'function') {
-					close()
-				}
-
-				// const {
-				// 	back
-				// } = userHistory
-
-				// if (back && back !== '/') {
-				// 	history.push(`/${back}${URLParameters}`)
-				// } else {
-				// 	history.push(`/${URLParameters}`)
-				// }
-			}
-		}])
-	}
-
 	return (
 		<Wrapper>
 			{!phoneReady &&
 				<>
-					{signUpError &&
-						<ErrorMessage>
-							<span>{signUpError}</span>
-							<IconClose />
-						</ErrorMessage>
-					}
 					<Header>
-						<IconArrowLeft onClick={() => {
-							// if (back && back !== '/' && back !== 'sign-up') {
-							//   history.push(`/${back}${URLParameters}`)
-							// } else {
-							// 	window.history.back()
-							// }
-						}} />
 						<Title>Cadastrar nova conta</Title>
 					</Header>
 					<Form onSubmit={(event) => { event.preventDefault() }}>
@@ -403,6 +224,7 @@ function SignUp(props) {
 								name='name'
 								value={name}
 								onChange={handleInput}
+								disabled={loading}
 							/>
 						</FormFieldName>
 						<FormFieldLastName>
@@ -442,6 +264,16 @@ function SignUp(props) {
 								onChange={handleInput}
 							/>
 						</FormFieldCPF>
+						<FormFieldPhone>
+							<InputRounded
+								placeholder="Telefone"
+								className='half'
+								maxLength={12}
+								name='phone'
+								value={phone}
+								onChange={handleInput}
+							/>
+						</FormFieldPhone>
 						<FormFieldPassword>
 							<InputRounded
 								placeholder="Senha"
@@ -463,7 +295,14 @@ function SignUp(props) {
 						<RegisterButton
 							onClick={() => { handleSubmit() }}
 						>
-							Cadastrar
+							{loading ?
+								<CustomLoading
+									color={'#fff'}
+									type={'spin'}
+									id='default-loading'
+									height={30}
+									width={30} /> :
+								'Cadastrar'}
 						</RegisterButton>
 						<TermsOfServiceLabel>
 							Ao se cadastrar você concorda com os <a href='#a'>Termos de Uso</a>
@@ -477,13 +316,13 @@ function SignUp(props) {
 
 const mapStateToProps = (state) => {
 	return {
-		// signUp: (state.signUp.signUp) || {},
-		// userHistory: (state.main.userHistory) || {},
-		// URLParameters: (state.main.URLParameters) || ''
+		signUp: (state.auth.signUp) || {},
 	}
 }
 
 export default connect(
 	mapStateToProps, {
-
+	signUpUser,
+	setSignUp,
+	getSignUp
 })(SignUp);

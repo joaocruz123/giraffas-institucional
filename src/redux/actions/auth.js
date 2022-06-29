@@ -10,7 +10,8 @@ export const actionTypes = {
 	SET_LOGIN: 'SET_LOGIN',
 	SET_ACCESS_USER: 'SET_ACCESS_USER',
 	SET_USER: 'SET_USER',
-	SET_REQUIRED: 'SET_REQUIRED'
+	SET_REQUIRED: 'SET_REQUIRED',
+	SET_SIGN_UP: 'SET_SIGN_UP'
 }
 
 export const setRequiredAuth = (required) => async (dispatch) => {
@@ -65,28 +66,54 @@ export const login = (data) => async (dispatch, getState, api) => {
 	}
 }
 
-export const signUp = (form) => async (dispatch, getState, api) => {
-	const result = {}
+export const signUpUser = (form) => async (dispatch, getState, api) => {
 	try {
 		const url = `Usuarios/Cadastrar`
 		const dto = mapSignUpCreateData(form)
 		const apiResponse = await api.post(url, dto)
 
-		const response = mapAuthCreateResponse(apiResponse.data)
+		const result = mapAuthCreateResponse(apiResponse.data)
 
-		if (response.success) {
-			Object.assign(result, {
-				success: true,
-				user: response.user
+		if (result.success) {
+			const {
+				name,
+				token,
+				cpf
+			} = result.user
+
+			console.log({
+				name: name,
+				cpf: cpf,
+				accessToken: token && token.accessToken
 			})
+			dispatch(setAccessUser({
+				name: name,
+				cpf: cpf,
+				accessToken: token && token.accessToken
+			}))
 
-			dispatch(setUser(response.user))
+			return result
 		}
+
+		return result
 	} catch (e) {
 		console.log(e)
 
 		dispatch(setUser({}))
 	}
+}
+
+export const setSignUp = (signUp) => async (dispatch) => {
+	dispatch({
+		type: actionTypes.SET_SIGN_UP,
+		payload: signUp
+	})
+}
+
+export const getSignUp = () => (dispatch, getState) => {
+  const signUp = getState().auth.signUp
+
+  return signUp
 }
 
 export const logout = () => async (dispatch, getState) => {
@@ -107,4 +134,25 @@ const setUser = (user) => async (dispatch, getState, api) => {
 		type: actionTypes.SET_USER,
 		payload: user
 	})
+}
+
+export const postSendNewPassword = (email) => async (dispatch, getState, api) => {
+  try {
+    const url = `Usuarios/RecuperarSenha`
+    const response = await api.post(url, { Email: email })
+    let result = {}
+
+    if (response && response.data) {
+      result = {
+        ...result,
+        success: response.data['Sucesso'],
+        message: response.data['Mensagem']
+      }
+    }
+
+    return result
+  } catch (e) {
+    const message = 'Não foi possível enviar a nova senha.'
+    return { success: false, message }
+  }
 }

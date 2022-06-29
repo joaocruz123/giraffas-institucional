@@ -326,6 +326,11 @@ export const FormFieldEmail = styled.div`
   margin: 0 0 1rem 0;
 `
 
+export const FormFieldPhone = styled.div`
+  flex: 1 0 100%;
+  width: 100%;
+  margin: 0 0 1rem 0;
+`
 export const FormFieldBirthDate = styled.div`
   flex: 0 1 calc(50% - .5rem);
   margin: 0 1rem 1rem 0;
