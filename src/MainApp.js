@@ -19,49 +19,102 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center
 `
-const MainApp = () => {
-  const dispatch = useDispatch()
-  const localAccess = localStorage.getItem('auth') ? localStorage.getItem('auth') : null
-  const logout = localStorage.getItem('logout') ? localStorage.getItem('logout') : null
-  const [loading, setLoading] = useState(true)
-  
+const MainApp = (props) => {
+	const { accessToken, requiredAuth } = props
+	const dispatch = useDispatch()
+	const localAccess = localStorage.getItem('auth') ? localStorage.getItem('auth') : null
+	const logout = localStorage.getItem('logout') ? localStorage.getItem('logout') : null
+	const [loading, setLoading] = useState(true)
+	const [visibleSignIn, setVisibleSignIn] = useState(false);
+	const [visibleSignUp, setVisibleSignUp] = useState(false);
+	const [visibleForgotPassword, setVisibleForgotPassword] = useState(false);
+
 	const isMobile = useDeviceLayout({
 		isMobile: true
 	})
 
 	useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000)
-  }, [logout, localAccess, dispatch])
+		if (!accessToken && requiredAuth) {
+			setVisibleSignIn(true);
+		}else{
+			setVisibleSignIn(false);
+		}
 
-  const combineThemes = () => {
-    const newTheme = JSON.parse(JSON.stringify(THEME))
-    return newTheme
-  }
-  if (loading) {
-    return (
-      <Wrapper>
-        <ReactLoading type="spin" color="#ED8B26" height={isMobile ? '10%' : '3%'} width={isMobile ? '10%' : '3%'} />
-      </Wrapper>
-    )
-  } else {
-    return (
-      <ThemeProvider theme={combineThemes()}>
-        <Helmet>
-          <title>{process.env.REACT_APP_TITLE}</title>
-        </Helmet>
-        <Navbar/>
-        <Routes />
-      </ThemeProvider>
-    )
-  }
+		setTimeout(() => {
+			setLoading(false);
+		}, 3000)
+	}, [
+		requiredAuth,
+		accessToken,
+		logout,
+		localAccess,
+		dispatch
+	])
+
+	const combineThemes = () => {
+		const newTheme = JSON.parse(JSON.stringify(THEME))
+		return newTheme
+	};
+
+	const startDialogSignin = () => {
+		setVisibleSignIn(true);
+	};
+
+	const handleCloseDialogSignIn = () => {
+		setVisibleSignIn(false)
+	};
+
+	const startDialogSignup = () => {
+		setVisibleSignUp(true);
+	};
+
+	const handleCloseDialogSignUp = () => {
+		setVisibleSignUp(false)
+	};
+
+	const propsAuth = {
+		visibleSignIn,
+		visibleSignUp,
+		setVisibleSignIn,
+		startDialogSignin,
+		setVisibleSignUp,
+		handleCloseDialogSignIn,
+		startDialogSignup,
+		handleCloseDialogSignUp,
+		visibleForgotPassword,
+		setVisibleForgotPassword
+	}
+
+	if (loading) {
+		return (
+			<Wrapper>
+				<ReactLoading
+					type="spin"
+					color="#ED8B26"
+					height={isMobile ? '10%' : '3%'}
+					width={isMobile ? '10%' : '3%'}
+				/>
+			</Wrapper>
+		)
+	} else {
+		return (
+			<ThemeProvider theme={combineThemes()}>
+				<Helmet>
+					<title>{process.env.REACT_APP_TITLE}</title>
+				</Helmet>
+				<Navbar {...propsAuth} />
+				<Routes />
+			</ThemeProvider>
+		)
+	}
 }
 
 const mapStateToProps = (state) => {
-  return {
-    storeInfo: state && state.storeInfo
-  }
+	return {
+		storeInfo: state && state.storeInfo,
+		accessToken: state.auth.auth && state.auth.auth.accessToken || null,
+		requiredAuth: state.auth && state.auth.requiredAuth
+	}
 }
 
 export default connect(mapStateToProps, {})(MainApp)
