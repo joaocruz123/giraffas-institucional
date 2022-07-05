@@ -3,7 +3,10 @@ import {
 	mapLoginCreateRequest,
 	mapLoginCreateData,
 	mapSignUpCreateData,
-	mapAuthCreateResponse
+	mapAuthCreateResponse,
+	mapFbLoginFormToAPI,
+	mapGoogleLoginFormToAPI,
+	mapAuthAPIResponse
 } from "../mappers/auth";
 
 export const actionTypes = {
@@ -11,7 +14,8 @@ export const actionTypes = {
 	SET_ACCESS_USER: 'SET_ACCESS_USER',
 	SET_USER: 'SET_USER',
 	SET_REQUIRED: 'SET_REQUIRED',
-	SET_SIGN_UP: 'SET_SIGN_UP'
+	SET_SIGN_UP: 'SET_SIGN_UP',
+	SET_METHOD_LOGIN: 'SET_METHOD_LOGIN'
 }
 
 export const setRequiredAuth = (required) => async (dispatch) => {
@@ -154,5 +158,93 @@ export const postSendNewPassword = (email) => async (dispatch, getState, api) =>
   } catch (e) {
     const message = 'Não foi possível enviar a nova senha.'
     return { success: false, message }
+  }
+}
+
+export const setMethodAccess = (method) => async (dispatch, getState, api) => {
+  dispatch({
+    type: actionTypes.SET_METHOD_LOGIN,
+    payload: method
+  })
+}
+
+export const postFacebookLogin = (form) => async (dispatch, getState, api) => {
+  try {
+    const url = `Usuarios/LogarViaFacebook`
+    const data = mapFbLoginFormToAPI(form)
+    const result = await api.post(url, data)
+    const mappedResult = mapAuthAPIResponse(result.data)
+
+    if (mappedResult.success && mappedResult.user && mappedResult.user.signUp) {
+      dispatch(setLogin({
+        ...mappedResult,
+        email: form.email,
+        password: null,
+        success: true
+      }))
+
+      return mappedResult
+    }
+
+    if (mappedResult.success && mappedResult.user && !mappedResult.user.signUp) {
+
+      dispatch(setLogin({
+        ...mappedResult,
+        ...form,
+        email: form.email,
+        password: null,
+        success: true
+      }))
+
+      return mappedResult
+    }
+
+    // dispatch(setNotification({
+    //   type: 'warning',
+    //   message: 'Não foi possível fazer login com o Facebook.'
+    // }))
+
+    return mappedResult
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const postGoogleLogin = (form) => async (dispatch, getState, api) => {
+  try {
+    const url = `Usuarios/LogarViaGoogle`
+    const data = mapGoogleLoginFormToAPI(form)
+    const result = await api.post(url, data)
+    const mappedResult = mapAuthAPIResponse(result.data)
+
+    if (mappedResult.success && mappedResult.user && mappedResult.user.signUp) {
+      dispatch(setLogin({
+        ...mappedResult,
+        email: form.email,
+        password: null,
+        success: true
+      }))
+
+      return mappedResult
+    }
+
+    if (mappedResult.success && mappedResult.user && !mappedResult.user.signUp) {
+      dispatch(setLogin({
+        ...mappedResult,
+        ...form,
+        email: form.email,
+        password: null,
+        success: true
+      }))
+
+      return mappedResult
+    }
+
+    // dispatch(setNotification({
+    //   type: 'warning',
+    //   message: 'Não foi possível fazer login com o Google.'
+    // }))
+  } catch (e) {
+    console.log(e)
   }
 }

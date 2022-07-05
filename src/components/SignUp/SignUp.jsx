@@ -55,6 +55,7 @@ function SignUp(props) {
 	} = values
 
 	useEffect(() => {
+		setPhoneReady(false)
     document.querySelector('#root').style.background = '#fff'
 
     if (!loaded && !loading) {

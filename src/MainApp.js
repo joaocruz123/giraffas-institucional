@@ -82,7 +82,8 @@ const MainApp = (props) => {
 		startDialogSignup,
 		handleCloseDialogSignUp,
 		visibleForgotPassword,
-		setVisibleForgotPassword
+		setVisibleForgotPassword,
+		isMobile
 	}
 
 	if (loading) {
@@ -112,7 +113,7 @@ const MainApp = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		storeInfo: state && state.storeInfo,
-		accessToken: state.auth.auth && state.auth.auth.accessToken || null,
+		accessToken: (state.auth.auth && state.auth.auth.accessToken) || null,
 		requiredAuth: state.auth && state.auth.requiredAuth
 	}
 }

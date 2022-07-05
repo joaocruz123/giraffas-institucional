@@ -10,4 +10,6 @@ export const STORE_ID = process.env.REACT_APP_STORE_ID || 1612
 export const STORES_LIMIT = process.env.REACT_APP_STORES_LIMIT || 10
 export const PLATFORM = process.env.REACT_APP_PLATFORM || 2
 export const PLATFORM_ID = process.env.REACT_APP_PLATFORM_ID || 5
-export const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY || "AIzaSyBUKUg5XlcJFnqSQ1R8phCnbRe7owwMVYI"
+export const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY || "AIzaSyCw15PlIPg8RHMQRM3VVoAV7nhSIOLz3ps"
+export const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || '439912997021-buft2k8rkjkocv5vlhoi02e0v6p3nm93.apps.googleusercontent.com'
+export const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID || '2184403368547339'

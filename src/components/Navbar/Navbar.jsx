@@ -18,7 +18,7 @@ import {
 } from './styles'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction='up' ref={ref} {...props} />
+	return <Slide direction='up' ref={ref} {...props} />
 })
 
 export function Navbar({ ...propsAuth }) {
@@ -30,7 +30,8 @@ export function Navbar({ ...propsAuth }) {
 		handleCloseDialogSignIn,
 		visibleSignUp,
 		setVisibleSignUp,
-		handleCloseDialogSignUp
+		handleCloseDialogSignUp,
+		isMobile
 	} = propsAuth;
 
 	const handleSite = () => {
@@ -38,9 +39,9 @@ export function Navbar({ ...propsAuth }) {
 	};
 
 	function handleCloseDialogForgotPassword() {
-    setVisibleForgotPassword(false)
-    setVisibleSignIn(true)
-  }
+		setVisibleForgotPassword(false)
+		setVisibleSignIn(true)
+	}
 
 	return (
 		<>
@@ -113,36 +114,6 @@ export function Navbar({ ...propsAuth }) {
 						>
 							Lojas
 						</Link>
-						{/* <Link
-							variant="button"
-							href="#"
-							onClick={() => startDialogSignin()}
-							underline="none"
-							sx={{
-								my: 1, mx: 1.5, color: "#fff",
-								'&:hover': {
-									color: "#fff",
-									textDecoration: "none"
-								},
-							}}
-						>
-							Login
-						</Link>
-						<Link
-							variant="button"
-							href="#"
-							onClick={() => startDialogSignup()}
-							underline="none"
-							sx={{
-								my: 1, mx: 1.5, color: "#fff",
-								'&:hover': {
-									color: "#fff",
-									textDecoration: "none"
-								},
-							}}
-						>
-							Signup
-						</Link> */}
 					</Nav>
 					<Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
 					</Typography>
@@ -219,6 +190,7 @@ export function Navbar({ ...propsAuth }) {
 				}}
 			>
 				<SignIn
+					isMobile={isMobile}
 					setVisibleSignUp={setVisibleSignUp}
 					setVisibleSignIn={setVisibleSignIn}
 					setVisibleForgotPassword={setVisibleForgotPassword}
@@ -250,22 +222,22 @@ export function Navbar({ ...propsAuth }) {
 			</Dialog>
 
 			<Dialog
-          onClose={() => handleCloseDialogForgotPassword()}
-          aria-labelledby='forgot-password-dialog'
-          open={visibleForgotPassword}
-          maxWidth={'xs'}
-          fullWidth={false}
-          fullScreen={false}
-          classes={{
-            style: {
-							maxWidth: '22rem',
-							borderRadius: '.75rem'
-						}
-          }}
-          TransitionComponent={Transition}
-        >
-          <ForgotPassword backStep={() => handleCloseDialogForgotPassword()} />
-        </Dialog>
+				onClose={() => handleCloseDialogForgotPassword()}
+				aria-labelledby='forgot-password-dialog'
+				open={visibleForgotPassword}
+				maxWidth={'xs'}
+				fullWidth={false}
+				fullScreen={false}
+				classes={{
+					style: {
+						maxWidth: '22rem',
+						borderRadius: '.75rem'
+					}
+				}}
+				TransitionComponent={Transition}
+			>
+				<ForgotPassword backStep={() => handleCloseDialogForgotPassword()} />
+			</Dialog>
 		</>
 
 	)

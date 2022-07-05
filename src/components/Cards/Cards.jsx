@@ -12,7 +12,7 @@ function Cards(props) {
                     const key = `card-image-${index}`
 
                     return <Grid item xs={12} md={4} key={key}>
-                        <img key={key} src={item.image} width="100%"/>
+                        <img key={key} src={item.image} width="100%" alt="Imagem do card"/>
                     </Grid>
                 })}
 

@@ -17,8 +17,6 @@ import {
 	SessionTitle,
 	Input,
 	Filter,
-	CustomIcon,
-	CustomButtonFilter,
 	WrapperLoading,
 	Chip,
 	WrapperModalCategories
@@ -28,7 +26,6 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Icon } from '../Common';
 import ReactLoading from "react-loading"
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -202,12 +199,6 @@ function Menu(props) {
 			<SessionTitle>Nosso Cardápio</SessionTitle>
 			<Filter>
 				<Input placeholder='Busque algum produto' value={textSearch} onChange={(e) => handleSearchText(e)} />
-				{/* <CustomButtonFilter onClick={() => setOpenFilterCategories(true)}>
-					<CustomIcon>
-						<Icon width={"16px"} height={"16px"} name={"filter"} stroke={"white"} />
-					</CustomIcon>
-					Filtrar Categorias
-				</CustomButtonFilter> */}
 			</Filter>
 			{
 				!loading && filteredCategories && filteredCategories.length > 0 ?

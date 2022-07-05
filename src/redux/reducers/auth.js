@@ -5,7 +5,8 @@ let auth = JSON.parse(localStorage.getItem('auth'))
 const initialState = {
 	auth: null,
 	signUp: {},
-	requiredAuth: false
+	requiredAuth: false,
+	methodAccess: null,
 }
 
 const AuthReducer = (state = auth || initialState, action) => {
@@ -33,6 +34,15 @@ const AuthReducer = (state = auth || initialState, action) => {
 			newState = {
 				...state,
 				signUp: action.payload,
+			};
+
+			break;
+		}
+
+		case actionTypes.SET_METHOD_LOGIN: {
+			newState = {
+				...state,
+				methodAccess: action.payload,
 			};
 
 			break;

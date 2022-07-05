@@ -1,12 +1,9 @@
-import { AppBar, Link, Toolbar, Typography } from '@mui/material'
+import { AppBar, Link, Toolbar } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Wrapper } from './styles'
 import Logo from './../../../assets/logo_giraffas.png'
-import { Icon } from './../../Common'
-import { CustomButton, CustomIcon, Nav } from '../styles'
 
 export function FixedHeaderMobile(props) {
-	const { handleSite } = props
 	const [fixed, setFixed] = useState(false)
 	useEffect(() => {
 		const handleScroll = () => {

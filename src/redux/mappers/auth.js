@@ -39,6 +39,11 @@ export const mapSignUpCreateData = (data) => {
 		'DataNascimento': data.birthDate,
 		'Cpf': data.CPF,
 		'Telefone': data.phone,
+		'GoogleUsuarioId': data.googleUserId,
+    'GoogleToken': data.googleToken,
+    'FacebookUsuarioId': data.facebookUserId,
+    'FacebookToken': data.facebookToken,
+    'FotoId': data.image
 	}
 }
 
@@ -76,4 +81,50 @@ export const mapForgotPasswordFormToAPI = (email) => {
 	return {
 			"Email": email
 	}
+}
+
+export const mapFbLoginFormToAPI = (data) => {
+  return {
+    'FacebookToken': data.accessToken,
+    'Email': data.email,
+    'FacebookUsuarioId': data.userID
+  }
+}
+
+export const mapGoogleLoginFormToAPI = (data) => {
+  return {
+    'GoogleToken': data.accessToken,
+    'Email': data.profileObj.email,
+    'GoogleUsuarioId': data.googleId
+  }
+}
+
+export const mapAuthAPIResponse = (data) => {
+  const expiresSeconds = data['Token'] && data['Token']['ExpiresIn']
+
+  return {
+    user: {
+      id: data['UsuarioId'],
+      authToken: data['AuthenticationToken'],
+      name: data['Nome'],
+      lastname: data['SobreNome'],
+      email: data['Email'],
+      cpf: data['Cpf'],
+      phone: data['Telefone'],
+      birthdate: data['DataNascimento'],
+      mustUpdate: data['AtualizacaoObrigatoria'],
+      hasUpdate: data['TemAtualizacao'],
+      signUpStatus: data['StatusCadastro'],
+      signUp: data['Cadastrar'],
+      updateData: data['AtualizarDados'],
+      loginType: data['TipoLogin'],
+      token: {
+        accessToken: data['Token'] && data['Token']['AccessToken'],
+        type: data['Token'] && data['Token']['TokenType'],
+        expires: moment().add('seconds', expiresSeconds).toISOString()
+      }
+    },
+    success: data['Sucesso'],
+    message: data['Mensagem']
+  }
 }

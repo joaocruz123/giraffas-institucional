@@ -1,5 +1,5 @@
 import { Container, Dialog, Grid, Paper } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import {
@@ -24,10 +24,6 @@ import {
 	ImageApp
 } from './styles';
 import { setFilterdMenu, setTextSearch } from './../../redux/actions/menu'
-import MuiAccordion from '@mui/material/Accordion';
-import MuiAccordionSummary from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Icon } from '../Common';
 import ReactLoading from "react-loading"
 import GiraffasApp from '../../assets/giraffas_app.png'
@@ -51,36 +47,6 @@ const Item = styled(Paper)(({ theme }) => ({
 	height: "29.363rem",
 	color: theme.palette.text.secondary,
 	cursor: "pointer"
-}));
-
-const Accordion = styled((props) => (
-	<MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-	border: `2px solid ${theme.palette.divider}`,
-	borderRadius: '8px',
-	'&:not(:last-child)': {
-		borderBottom: '',
-	},
-	'&:before': {
-		display: 'none',
-	},
-	'&.selected': {
-		border: `1px solid #ED8B26`,
-	}
-}));
-
-const AccordionSummary = styled((props) => (
-	<MuiAccordionSummary {...props} />
-))(() => ({
-	padding: 0,
-	margin: 0,
-	backgroundColor: '#efefef'
-}));
-
-const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
-	padding: theme.spacing(2),
-	borderTop: '1px solid rgba(0, 0, 0, .125)',
-	backgroundColor: '#efefef'
 }));
 
 function Promotions(props) {
@@ -119,6 +85,7 @@ function Promotions(props) {
 		}, 1000)
 		setOpen(false)
 		setOpenPromotion(true)
+		setLoading(false)
 	}
 
 	return (
